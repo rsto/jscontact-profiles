@@ -35,7 +35,8 @@
   <middle>
     <section anchor="introduction" numbered="true" toc="default">
       <name>Introduction</name>
-      <t>TBD</t>
+      <t>The <xref target="RFC9553">JSContact</xref> contact card data model and format is designed for use in address book applications and directory services. Intended as an alternative to the prevalent <xref target="RFC6350">vCard</xref> data format, it covers vCard core semantics and extensions, and provides a rich model for personal names, postal addresses and localization. All JSContact elements are relevant for some contact card use case and, similar to vCard, implementations are expected to support these elements when exchanging contact card information using protocols such as <xref target="RFC6352">CardDAV</xref> and <xref target="RFC9610">JMAP for Contacts</xref>.</t><t>In contrast, other protocols and internet standards might require to exchange <em>some</em> contact card information, but not need all of what JSContact provides. <xref target="RFC9553" section="1.7.4"/> outlines how JSContact implementations may ignore unknown JSContact elements, but this only applies to future extensions of <xref target="RFC9553"/>; they are still expected to implement all of the core specification. Also, for some protocols the extensibility of JSContact and the requirement to perserve arbitrary contact elements might not be adequate.</t>
+      <t>To facilitate making use of JSContact under these circumstances, this document defines a new IANA registry for JSContact that allows to register named subsets of JSContact elements. These subsets are referred to as "profiles" of JSContact.</t>
     </section>
     <section anchor="iana-considerations" numbered="true" toc="default">
       <name>IANA Considerations</name>
@@ -50,7 +51,10 @@
       <name>References</name>
       <references>
         <name>Normative References</name>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6350.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6352.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9553.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9610.xml"/>
       </references>
     </references>
   </back>
