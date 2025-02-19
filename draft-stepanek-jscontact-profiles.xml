@@ -42,11 +42,116 @@
         <li>Different protocols use the same IANA registry to express which JSContact elements they support. This facilities understanding their commonalities and reuse of existing profiles.</li>
         <li>A central registry provides implementors of JSContact libraries with a single source of truth which profile supports what elements, rather than having to look up that information from possibly distinctly organized internet drafts.</li>
       </ul>
-      <t>This document is organized as follows: <xref target="jscontact-profiles"/> formally defines JSContact profiles. <xref target="iana-considerations"/> summarizes the relevant information for IANA to establish the JSContact Profiles registry. This document does not define any specific JSContact profile.</t>
+      <t>This document is organized as follows: <xref target="jscontact-profiles"/> defines JSContact profiles. <xref target="iana-considerations"/> summarizes the relevant information for IANA to establish the JSContact Profiles registry. This document does not define any specific JSContact profile.</t>
     </section>
     <section anchor="jscontact-profiles">
       <name>JSContact Profiles</name>
-      <t></t>
+      <t>A JSContact profile consists of a unique name and a list of JSContact properties that this profile supports. Each property <bcp14>MUST</bcp14> be registered in the JSContact Properties registry at IANA. A profile <bcp14>MUST</bcp14> list both the name and type context of the supported property, defined as the Property Name and Property Context in the <xref target="RFC9553" section="3.5.1" sectionFormat="comma">JSContact Properties Registry Template</xref>. In addition to its name and list of supported IANA-registered properties, a profile indicates if JSContact objects are allowed to contain <xref target="RFC9553" section="1.8.1">vendor-specific</xref> properties.</t>
+      <t>Mandatory properties of the Card object are supported by all profiles, they need not be listed. Optional properties of the Card object are supported if explicitly listed by that profile. Properties of any other JSContact object are supported if the profile lists a supported property having that object as value type. All properties of such objects are supported, unless the profile only lists a subset of the object's properties. In the latter case, only the listed and mandatory properties are supported. The "@type" property always is supported if the object having that property is supported.</t>
+      <section>
+        <name>The examplary "verysmall" Profile</name>
+        <t><xref target="example-verysmall"/> illustrates this by example of a profile named "verysmall".</t>
+        <table anchor="example-verysmall">
+          <name>The "verysmall" Profile</name>
+          <thead>
+            <tr>
+              <th>Property Name</th>
+              <th>Property Context</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>addresses</td>
+              <td>Card</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>Card</td>
+            </tr>
+            <tr>
+              <td>emails</td>
+              <td>Card</td>
+            </tr>
+            <tr>
+              <td>full</td>
+              <td>Address, Name</td>
+            </tr>
+          </tbody>
+        </table>
+        <t>Based on the rules outlined before, the complete list of properties supported by this profile is:</t>
+        <table anchor="example-verysmall-supported-properties">
+          <name>Supported Properties of the "verysmall" Profile</name>
+          <thead>
+            <tr>
+              <th>Property Name</th>
+              <th>Property Context</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>@type</td>
+              <td>Card</td>
+              <td>Mandatory Card property.</td>
+            </tr>
+            <tr>
+              <td>@version</td>
+              <td>Card</td>
+              <td>Mandatory Card property.</td>
+            </tr>
+            <tr>
+              <td>addresses</td>
+              <td>Card</td>
+              <td>Explicitly listed</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>Card</td>
+              <td>Explicitly listed</td>
+            </tr>
+            <tr>
+              <td>emails</td>
+              <td>Card</td>
+              <td>Explicitly listed</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>Card</td>
+              <td>Mandatory Card property</td>
+            </tr>
+            <tr>
+              <td>@type</td>
+              <td>Address, Name</td>
+              <td>Address and Name are value types of the supported address and name properties.</td>
+            </tr>
+            <tr>
+              <td>full</td>
+              <td>Address, Name</td>
+              <td>Explicitly listed</td>
+            </tr>
+            <tr>
+              <td>address</td>
+              <td>EmailAddress</td>
+              <td>Mandatory EmailAddress property</td>
+            </tr>
+            <tr>
+              <td>contexts</td>
+              <td>EmailAddress</td>
+              <td>EmailAddress is value type of supported emails property and no properties of EmailAddress are explicitly listed.</td>
+            </tr>
+            <tr>
+              <td>label</td>
+              <td>EmailAddress</td>
+              <td>Same rationale as for "contexts".</td>
+            </tr>
+            <tr>
+              <td>pref</td>
+              <td>EmailAddress</td>
+              <td>Same rationale as for "contexts".</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
     </section>
     <section anchor="iana-considerations" numbered="true" toc="default">
       <name>IANA Considerations</name>
