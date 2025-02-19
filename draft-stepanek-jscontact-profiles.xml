@@ -36,7 +36,17 @@
     <section anchor="introduction" numbered="true" toc="default">
       <name>Introduction</name>
       <t>The <xref target="RFC9553">JSContact</xref> contact card data model and format is designed for use in address book applications and directory services. Intended as an alternative to the prevalent <xref target="RFC6350">vCard</xref> data format, it covers vCard core semantics and extensions, and provides a rich model for personal names, postal addresses and localization. All JSContact elements are relevant for some contact card use case and, similar to vCard, implementations are expected to support these elements when exchanging contact card information using protocols such as <xref target="RFC6352">CardDAV</xref> and <xref target="RFC9610">JMAP for Contacts</xref>.</t><t>In contrast, other protocols and internet standards might require to exchange <em>some</em> contact card information, but not need all of what JSContact provides. <xref target="RFC9553" section="1.7.4"/> outlines how JSContact implementations may ignore unknown JSContact elements, but this only applies to future extensions of <xref target="RFC9553"/>; they are still expected to implement all of the core specification. Also, for some protocols the extensibility of JSContact and the requirement to perserve arbitrary contact elements might not be adequate.</t>
-      <t>To facilitate making use of JSContact under these circumstances, this document defines a new IANA registry for JSContact that allows to register named subsets of JSContact elements. These subsets are referred to as "profiles" of JSContact.</t>
+      <t>To make use of JSContact under these circumstances, this document defines a new IANA registry for JSContact that allows to register named subsets of JSContact elements. These subsets are referred to as "JSContact profiles", which bring the following benefits:</t>
+      <ul>
+        <li>Protocol designers might be encouraged to use JSContact, rather than coming up with their own contacts format. This facilitates cross-protocol data exchange and migration.</li>
+        <li>Different protocols use the same IANA registry to express which JSContact elements they support. This facilities understanding their commonalities and reuse of existing profiles.</li>
+        <li>A central registry provides implementors of JSContact libraries with a single source of truth which profile supports what elements, rather than having to look up that information from possibly distinctly organized internet drafts.</li>
+      </ul>
+      <t>This document is organized as follows: <xref target="jscontact-profiles"/> formally defines JSContact profiles. <xref target="iana-considerations"/> summarizes the relevant information for IANA to establish the JSContact Profiles registry. This document does not define any specific JSContact profile.</t>
+    </section>
+    <section anchor="jscontact-profiles">
+      <name>JSContact Profiles</name>
+      <t></t>
     </section>
     <section anchor="iana-considerations" numbered="true" toc="default">
       <name>IANA Considerations</name>
