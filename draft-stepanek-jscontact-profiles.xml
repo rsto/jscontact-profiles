@@ -24,18 +24,24 @@
         <email>rsto@fastmailteam.com</email>
       </address>
     </author>
-    <date year="2025" month="February" day="17"/>
+    <date year="2025" month="February" day="21"/>
     <area>art</area>
     <workgroup>calext</workgroup>
     <keyword>JSContact</keyword>
     <abstract>
-      <t>TBD</t>
+      <t>This document defines JSContact profiles, a named subsets of JSContact elements that are supported in context of a contact data exchange protocol or other use case. It aims to facilitate using JSContact in contexts where supporting all of JSContact semantics is not appropriate.</t>
     </abstract>
   </front>
   <middle>
+    <section anchor="notational-conventions" numbered="true" toc="default">
+      <name>Notational Conventions</name>
+      <t>The key words "<bcp14>MUST</bcp14>", "<bcp14>MUST NOT</bcp14>", "<bcp14>REQUIRED</bcp14>", "<bcp14> SHALL</bcp14>", "<bcp14>SHALL NOT</bcp14>", "<bcp14>SHOULD</bcp14>", "<bcp14>SHOULD NOT</bcp14>", "<bcp14> RECOMMENDED</bcp14>", "<bcp14>NOT RECOMMENDED</bcp14>", "<bcp14>MAY</bcp14>", and "<bcp14>OPTIONAL</bcp14>" in this document are to be interpreted as described in BCP 14 <xref target="RFC2119" format="default" sectionFormat="of" derivedContent="RFC2119"/> <xref target="RFC8174" format="default" sectionFormat="of" derivedContent="RFC8174"/> when, and only when, they appear in all capitals, as shown here.</t>
+      <t>The ABNF definitions in this document use the notations of <xref target="RFC5234"/>. ABNF rules not defined in this document are defined in either <xref target="RFC5234"/> (such as the ABNF for CRLF, WSP, DQUOTE, VCHAR, ALPHA, and DIGIT) or <xref target="RFC6350"/>.</t>
+    </section>
     <section anchor="introduction" numbered="true" toc="default">
       <name>Introduction</name>
-      <t>The <xref target="RFC9553">JSContact</xref> contact card data model and format is designed for use in address book applications and directory services. Intended as an alternative to the prevalent <xref target="RFC6350">vCard</xref> data format, it covers vCard core semantics and extensions, and provides a rich model for personal names, postal addresses and localization. All JSContact elements are relevant for some contact card use case and, similar to vCard, implementations are expected to support these elements when exchanging contact card information using protocols such as <xref target="RFC6352">CardDAV</xref> and <xref target="RFC9610">JMAP for Contacts</xref>.</t><t>In contrast, other protocols and internet standards might require to exchange <em>some</em> contact card information, but not need all of what JSContact provides. <xref target="RFC9553" section="1.7.4"/> outlines how JSContact implementations may ignore unknown JSContact elements, but this only applies to future extensions of <xref target="RFC9553"/>; they are still expected to implement all of the core specification. Also, for some protocols the extensibility of JSContact and the requirement to perserve arbitrary contact elements might not be adequate.</t>
+      <t>The <xref target="RFC9553">JSContact</xref> contact card data model and format is designed for use in address book applications and directory services. Intended as an alternative to the prevalent <xref target="RFC6350">vCard</xref> data format, it covers vCard core semantics and extensions, and provides a rich model for personal names, postal addresses and localization. All JSContact elements are relevant for some contact card use case and, similar to vCard, implementations are expected to support these elements when exchanging contact card information using protocols such as <xref target="RFC6352">CardDAV</xref> and <xref target="RFC9610">JMAP for Contacts</xref>.</t>
+      <t>In contrast, other protocols and internet standards might require to exchange <em>some</em> contact card information, but not need all of what JSContact provides. <xref target="RFC9553" section="1.7.4"/> outlines how JSContact implementations may ignore unknown JSContact elements, but this only applies to future extensions of <xref target="RFC9553"/>; they are still expected to implement all of the core specification. Also, for some protocols the extensibility of JSContact and the requirement to preserve arbitrary contact elements might not be adequate.</t>
       <t>To make use of JSContact under these circumstances, this document defines a new IANA registry for JSContact that allows to register named subsets of JSContact elements. These subsets are referred to as "JSContact profiles", which bring the following benefits:</t>
       <ul>
         <li>Protocol designers might be encouraged to use JSContact, rather than coming up with their own contacts format. This facilitates cross-protocol data exchange and migration.</li>
@@ -46,119 +52,166 @@
     </section>
     <section anchor="jscontact-profiles">
       <name>JSContact Profiles</name>
-      <t>A JSContact profile consists of a unique name and a list of JSContact properties that this profile supports. Each property <bcp14>MUST</bcp14> be registered in the JSContact Properties registry at IANA. A profile <bcp14>MUST</bcp14> list both the name and type context of the supported property, defined as the Property Name and Property Context in the <xref target="RFC9553" section="3.5.1" sectionFormat="comma">JSContact Properties Registry Template</xref>. In addition to its name and list of supported IANA-registered properties, a profile indicates if JSContact objects are allowed to contain <xref target="RFC9553" section="1.8.1">vendor-specific</xref> properties.</t>
-      <t>Mandatory properties of the Card object are supported by all profiles, they need not be listed. Optional properties of the Card object are supported if explicitly listed by that profile. Properties of any other JSContact object are supported if the profile lists a supported property having that object as value type. All properties of such objects are supported, unless the profile only lists a subset of the object's properties. In the latter case, only the listed and mandatory properties are supported. The "@type" property always is supported if the object having that property is supported.</t>
-      <section>
-        <name>The examplary "verysmall" Profile</name>
-        <t><xref target="example-verysmall"/> illustrates this by example of a profile named "verysmall".</t>
-        <table anchor="example-verysmall">
-          <name>The "verysmall" Profile</name>
-          <thead>
-            <tr>
-              <th>Property Name</th>
-              <th>Property Context</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>addresses</td>
-              <td>Card</td>
-            </tr>
-            <tr>
-              <td>name</td>
-              <td>Card</td>
-            </tr>
-            <tr>
-              <td>emails</td>
-              <td>Card</td>
-            </tr>
-            <tr>
-              <td>full</td>
-              <td>Address, Name</td>
-            </tr>
-          </tbody>
-        </table>
-        <t>Based on the rules outlined before, the complete list of properties supported by this profile is:</t>
-        <table anchor="example-verysmall-supported-properties">
-          <name>Supported Properties of the "verysmall" Profile</name>
-          <thead>
-            <tr>
-              <th>Property Name</th>
-              <th>Property Context</th>
-              <th>Note</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>@type</td>
-              <td>Card</td>
-              <td>Mandatory Card property.</td>
-            </tr>
-            <tr>
-              <td>@version</td>
-              <td>Card</td>
-              <td>Mandatory Card property.</td>
-            </tr>
-            <tr>
-              <td>addresses</td>
-              <td>Card</td>
-              <td>Explicitly listed</td>
-            </tr>
-            <tr>
-              <td>name</td>
-              <td>Card</td>
-              <td>Explicitly listed</td>
-            </tr>
-            <tr>
-              <td>emails</td>
-              <td>Card</td>
-              <td>Explicitly listed</td>
-            </tr>
-            <tr>
-              <td>uid</td>
-              <td>Card</td>
-              <td>Mandatory Card property</td>
-            </tr>
-            <tr>
-              <td>@type</td>
-              <td>Address, Name</td>
-              <td>Address and Name are value types of the supported address and name properties.</td>
-            </tr>
-            <tr>
-              <td>full</td>
-              <td>Address, Name</td>
-              <td>Explicitly listed</td>
-            </tr>
-            <tr>
-              <td>address</td>
-              <td>EmailAddress</td>
-              <td>Mandatory EmailAddress property</td>
-            </tr>
-            <tr>
-              <td>contexts</td>
-              <td>EmailAddress</td>
-              <td>EmailAddress is value type of supported emails property and no properties of EmailAddress are explicitly listed.</td>
-            </tr>
-            <tr>
-              <td>label</td>
-              <td>EmailAddress</td>
-              <td>Same rationale as for "contexts".</td>
-            </tr>
-            <tr>
-              <td>pref</td>
-              <td>EmailAddress</td>
-              <td>Same rationale as for "contexts".</td>
-            </tr>
-          </tbody>
-        </table>
+      <t>A JSContact profile is a named subset of IANA-registered JSContact elements. A JSContact object conforms to a profile if all its elements are in the subset defined by that profile.</t>
+      <section anchor="characteristics">
+        <name>JSContact Profile Characteristics</name>
+        <t>To define the subset of supported JSContact elements, profiles <bcp14>MAY</bcp14>:</t>
+        <ul>
+          <li>Restrict which optional properties of a JSContact object type are allowed to be set.</li>
+          <li>Require optional properties to be set, effectively making them mandatory for that profile.</li>
+          <li>Restrict the <xref target="RFC9553" section="1.7.5" sectionFormat="parens">enumerated values</xref> of a property to a non-empty subset of those values.</li>
+          <li>Restrict the value type signature of a multi-typed property e.g. only allow the value type "A" for a property having value type "A|B".</li>
+        </ul>
+        <t>In contrast, profiles <bcp14>MUST NOT</bcp14> not:</t>
+        <ul>
+          <li>Define mandatory properties to be optional.</li>
+          <li>Replace or expand the value type signature of a property.</li>
+          <li>Change the default type of a multi-typed property.</li>
+          <li>Restrict the allowed values for any value type that is not an enumerated value.</li>
+        </ul>
+        <t>A JSContact profile <bcp14>MUST</bcp14> be registered at IANA (see <xref target="iana-considerations"/>).</t>
       </section>
+      <section anchor="name">
+        <name>JSContact Profile Name</name>
+        <t>Every JSContact profile <bcp14>MUST</bcp14> have a unique name. The name <bcp14>MUST</bcp14> only contain ASCII lower case alphabetic and numeric characters, optionally separated by hyphen. Formally, it <bcp14>MUST</bcp14> be a valid "profile-name" defined in the appendix section in <xref target="profile-name-abnf"/>.</t>
+      </section>
+      <section anchor="properties">
+        <name>JSContact Profile Properties</name>
+        <t>The subset of JSContact elements supported by a profile is defined as a list of properties per object type. A JSContact property of an object type is part of this subset if one of the following conditions apply:</t>
+        <ol>
+          <li>It explicitly is listed as supported for that object type in that profile.</li>
+          <li>It is defined for an object type which is the value type of an explicitly listed property and no properties are listed explicitly for this object type.</li>
+          <li>It is defined for the Card object and no properties are listed explicitly for the Card object type.</li>
+        </ol>
+        <t>A profile <bcp14>MUST</bcp14> explicitly list at least one property.</t>
+        <t>If at least one property is listed explicitly for an object type, then all mandatory properties of that object type <bcp14>MUST</bcp14> be listed (this is to allow a profile restrict an object type to only its mandatory properties). As an exceptions to this rule the following properties need not be listed, they are always supported:</t>
+        <ul>
+          <li>The "@type" of any object type that is supported by this profile.</li>
+          <li>The "version" property of the Card object.</li>
+        </ul>
+        <t>Each property <bcp14>MAY</bcp14> be further restricted as outlined in <xref target="characteristics"/>. The IANA registry template in <xref target="iana-considerations"/> formally defines the format of property list entries. <xref target="example"/> illustrates this by example.</t>
+      </section>
+    </section>
+    <section anchor="example">
+      <name>Example Profile</name>
+      <t>This section provides an example for a JSContact profile. This profile is just for illustration, it is not registered at IANA.</t>
+      <t>The profile name is "jscontact-profile-example". It lists the following properties:</t>
+      <table>
+        <name>The "jscontact-profile-example" profile</name>
+        <thead>
+          <tr>
+            <th>Property Name</th>
+            <th>Property Context</th>
+            <th>Restricted to be Mandatory</th>
+            <th>Restricted Enum Values</th>
+            <th>Restricted Property Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>addresses</td>
+            <td>Card</td>
+            <td/>
+            <td/>
+            <td/>
+          </tr>
+          <tr>
+            <td>emails</td>
+            <td>Card</td>
+            <td/>
+            <td/>
+            <td/>
+          </tr>
+          <tr>
+            <td>kind</td>
+            <td>Card</td>
+            <td/>
+            <td>individual</td>
+            <td/>
+          </tr>
+          <tr>
+            <td>name</td>
+            <td>Card</td>
+            <td/>
+            <td/>
+            <td/>
+          </tr>
+          <tr>
+            <td>uid</td>
+            <td>Card</td>
+            <td/>
+            <td/>
+            <td/>
+          </tr>
+          <tr>
+            <td>full</td>
+            <td>Address</td>
+            <td>Mandatory</td>
+            <td/>
+            <td/>
+          </tr>
+          <tr>
+            <td>components</td>
+            <td>Name</td>
+            <td/>
+            <td/>
+            <td/>
+          </tr>
+          <tr>
+            <td>full</td>
+            <td>Name</td>
+            <td/>
+            <td/>
+            <td/>
+          </tr>
+          <tr>
+            <td>kind</td>
+            <td>NameComponent</td>
+            <td/>
+            <td/>
+            <td/>
+          </tr>
+          <tr>
+            <td>value</td>
+            <td>NameComponent</td>
+            <td/>
+            <td/>
+            <td/>
+          </tr>
+        </tbody>
+      </table>
+      <t>This profile describes contact cards that only can contain contact information for individuals, including their full postal address lines (rather than distinct address components) and their full name and distinct name components. It neither supports phonetics nor ordered components for names and addresses. The only additional contact information that is supported in this profile are email addresses.</t>
+      <t>The following Card object conforms to that profile:</t>
+      <sourcecode type=""><![CDATA[
+{
+  "@type": "Card",
+  "version": "1.0",
+  "name": {
+    "components": [
+      { "kind": "surname", "value": "Doe" },
+      { "kind": "given", "value": "Jane" }
+    ]
+  },
+  "addresses": {
+    "a1": {
+      "full": "71 Cherry Court, Somewhere, 123SO, UK"
+    }
+  },
+  "emails": {
+    "e1": {
+      "address": "jane_doe@example.com"
+    }
+  }
+}
+]]></sourcecode>
     </section>
     <section anchor="iana-considerations" numbered="true" toc="default">
       <name>IANA Considerations</name>
+      <t>TBD</t>
     </section>
     <section anchor="security-considerations" numbered="true" toc="default">
       <name>Security Considerations</name>
-      <t>TBD</t>
+      <t>This document does not provide new security considerations. The security considerations of <xref target="RFC9553" section="4" sectionFormat="of"/> apply.</t>
     </section>
   </middle>
   <back>
@@ -166,11 +219,25 @@
       <name>References</name>
       <references>
         <name>Normative References</name>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6350.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6352.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9553.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9610.xml"/>
       </references>
     </references>
+    <section>
+      <name>ABNF definition for JSContact Profile Name</name>
+      <figure anchor="profile-name-abnf">
+        <name>ABNF Rule for JSContact Profile Name</name>
+        <sourcecode name="" type="abnf"><![CDATA[
+profile-name = LALPHA *[ ["-"] LALPHA ]
+
+LALPHA       = %x61-7A | DIGIT  ; a-z or 0-9
+]]></sourcecode>
+      </figure>
+    </section>
   </back>
 </rfc>
