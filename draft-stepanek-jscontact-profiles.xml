@@ -52,7 +52,8 @@
     </section>
     <section anchor="jscontact-profiles">
       <name>JSContact Profiles</name>
-      <t>A JSContact profile is a named subset of IANA-registered JSContact elements. A JSContact object conforms to a profile if all its elements are in the subset defined by that profile.</t>
+      <t>A JSContact profile is a named subset of JSContact elements. The JSContact elements <bcp14>MUST</bcp14> be registered in the IANA JSContact registry. A JSContact extension <bcp14>MAY</bcp14> define both a new profile and new elements, as long as they are registered at the same time.</t>
+      <t>A JSContact object conforms to a profile if all its elements are in the subset defined by that profile.</t>
       <section anchor="characteristics">
         <name>JSContact Profile Characteristics</name>
         <t>To define the subset of supported JSContact elements, profiles <bcp14>MAY</bcp14>:</t>
@@ -62,7 +63,7 @@
           <li>Restrict the <xref target="RFC9553" section="1.7.5" sectionFormat="parens">enumerated values</xref> of a property to a non-empty subset of those values.</li>
           <li>Restrict the value type signature of a multi-typed property e.g. only allow the value type "A" for a property having value type "A|B".</li>
         </ul>
-        <t>In contrast, profiles <bcp14>MUST NOT</bcp14> not:</t>
+        <t>Profiles <bcp14>MUST NOT</bcp14>:</t>
         <ul>
           <li>Define mandatory properties to be optional.</li>
           <li>Replace or expand the value type signature of a property.</li>
@@ -186,6 +187,7 @@
 {
   "@type": "Card",
   "version": "1.0",
+  "uid": "f5e4cd4f-4283-4d50-bd52-61d07dda971e",
   "name": {
     "components": [
       { "kind": "surname", "value": "Doe" },
