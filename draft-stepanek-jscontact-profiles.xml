@@ -5,10 +5,10 @@
 <!ENTITY nbhy "&#8209;">
 <!ENTITY wj "&#8288;">
 ]>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" docName="draft-stepanek-jscontact-profiles-00" submissionType="IETF" consensus="true" category="std" xml:lang="en" obsoletes="" updates="" tocInclude="true" symRefs="true" sortRefs="true" version="3">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" docName="draft-stepanek-jscontact-profiles-01" submissionType="IETF" consensus="true" category="std" xml:lang="en" obsoletes="" updates="" tocInclude="true" symRefs="true" sortRefs="true" version="3">
   <front>
     <title abbrev="JSContact Profiles">Protocol-Specific Profiles for JSContact</title>
-    <seriesInfo name="RFC" value="draft-stepanek-jscontact-profiles-00"/>
+    <seriesInfo name="RFC" value="draft-stepanek-jscontact-profiles-01"/>
     <author initials="R." surname="Stepanek" fullname="Robert Stepanek">
       <organization>Fastmail</organization>
       <address>
@@ -24,7 +24,7 @@
         <email>rsto@fastmailteam.com</email>
       </address>
     </author>
-    <date year="2025" month="February" day="21"/>
+    <date year="2025" month="March" day="19"/>
     <area>art</area>
     <workgroup>calext</workgroup>
     <keyword>JSContact</keyword>
@@ -42,7 +42,7 @@
       <name>Introduction</name>
       <t>The <xref target="RFC9553">JSContact</xref> contact card data model and format is designed for use in address book applications and directory services. Intended as an alternative to the prevalent <xref target="RFC6350">vCard</xref> data format, it covers vCard core semantics and extensions, and provides a rich model for personal names, postal addresses and localization. All JSContact elements are relevant for some contact card use case and, similar to vCard, implementations are expected to support these elements when exchanging contact card information using protocols such as <xref target="RFC6352">CardDAV</xref> and <xref target="RFC9610">JMAP for Contacts</xref>.</t>
       <t>In contrast, other protocols and internet standards might require to exchange <em>some</em> contact card information, but not need all of what JSContact provides. <xref target="RFC9553" section="1.7.4"/> outlines how JSContact implementations may ignore unknown JSContact elements, but this only applies to future extensions of <xref target="RFC9553"/>; they are still expected to implement all of the core specification. Also, for some protocols the extensibility of JSContact and the requirement to preserve arbitrary contact elements might not be adequate.</t>
-      <t>To make use of JSContact under these circumstances, this document defines a new IANA registry for JSContact that allows to register named subsets of JSContact elements. These subsets are referred to as "JSContact profiles", which bring the following benefits:</t>
+      <t>To make use of JSContact under these circumstances, this document defines a new IANA registry for JSContact that allows to register named subsets of JSContact elements. These subsets are referred to as "JSContact profiles" and are meant to bring the following benefits:</t>
       <ul>
         <li>Protocol designers might be encouraged to use JSContact, rather than coming up with their own contacts format. This facilitates cross-protocol data exchange and migration.</li>
         <li>Different protocols use the same IANA registry to express which JSContact elements they support. This facilities understanding their commonalities and reuse of existing profiles.</li>
@@ -66,9 +66,9 @@
         <t>Profiles <bcp14>MUST NOT</bcp14>:</t>
         <ul>
           <li>Define mandatory properties to be optional.</li>
-          <li>Replace or expand the value type signature of a property.</li>
+          <li>Fully replace or expand the value type signature of a property.</li>
           <li>Change the default type of a multi-typed property.</li>
-          <li>Restrict the allowed values for any value type that is not an enumerated value.</li>
+          <li>Restrict the allowed values for any value type that is not an enumerated value. This does not apply to <xref target="RFC9553" section="1.4.1">map keys</xref>; protocol definitions <bcp14>MAY</bcp14> define and require special-purpose keys, but this is not part of a JSContact profile.</li>
         </ul>
         <t>A JSContact profile <bcp14>MUST</bcp14> be registered at IANA (see <xref target="iana-considerations"/>).</t>
       </section>
@@ -89,6 +89,7 @@
         <ul>
           <li>The "@type" of any object type that is supported by this profile.</li>
           <li>The "version" property of the Card object.</li>
+          <li>The "uid" property of the Card object.</li>
         </ul>
         <t>Each property <bcp14>MAY</bcp14> be further restricted as outlined in <xref target="characteristics"/>. The IANA registry template in <xref target="iana-considerations"/> formally defines the format of property list entries. <xref target="example"/> illustrates this by example.</t>
       </section>
@@ -132,13 +133,6 @@
           </tr>
           <tr>
             <td>name</td>
-            <td>Card</td>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-          <tr>
-            <td>uid</td>
             <td>Card</td>
             <td/>
             <td/>
