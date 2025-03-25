@@ -62,6 +62,7 @@
           <li>Require optional properties to be set, effectively making them mandatory for that profile.</li>
           <li>Restrict the <xref target="RFC9553" section="1.7.5" sectionFormat="parens">enumerated values</xref> of a property to a non-empty subset of those values.</li>
           <li>Restrict the value type signature of a multi-typed property e.g. only allow the value type "A" for a property having value type "A|B".</li>
+          <li>Restrict the count of <xref target="RFC6901" section="3" sectionFormat="parens">JSON Pointer reference tokens</xref> in PatchObject values to one. In effect, a PatchObject can only change a top-level property and only change that property's value entirely.</li>
         </ul>
         <t>Profiles <bcp14>MUST NOT</bcp14>:</t>
         <ul>
@@ -97,84 +98,92 @@
     <section anchor="example">
       <name>Example Profile</name>
       <t>This section provides an example for a JSContact profile. This profile is just for illustration, it is not registered at IANA.</t>
-      <t>The profile name is "jscontact-profile-example". It lists the following properties:</t>
-      <table>
-        <name>The "jscontact-profile-example" profile</name>
-        <thead>
-          <tr>
-            <th>Property Name</th>
-            <th>Property Context</th>
-            <th>Restricted to be Mandatory</th>
-            <th>Restricted Enum Values</th>
-            <th>Restricted Property Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>addresses</td>
-            <td>Card</td>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-          <tr>
-            <td>emails</td>
-            <td>Card</td>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-          <tr>
-            <td>kind</td>
-            <td>Card</td>
-            <td/>
-            <td>individual</td>
-            <td/>
-          </tr>
-          <tr>
-            <td>name</td>
-            <td>Card</td>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-          <tr>
-            <td>full</td>
-            <td>Address</td>
-            <td>Mandatory</td>
-            <td/>
-            <td/>
-          </tr>
-          <tr>
-            <td>components</td>
-            <td>Name</td>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-          <tr>
-            <td>full</td>
-            <td>Name</td>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-          <tr>
-            <td>kind</td>
-            <td>NameComponent</td>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-          <tr>
-            <td>value</td>
-            <td>NameComponent</td>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-        </tbody>
-      </table>
+      <dl newline="true">
+        <dt>Profile Name:</dt>
+        <dd>jscontact-simple</dd>
+        <dt>Restricts PatchObject values:</dt>
+        <dd>Yes</dd>
+        <dt>Property Registry:</dt>
+        <dd>
+          <table>
+            <name>Properties of the "jscontact-simple" profile</name>
+            <thead>
+              <tr>
+                <th>Property Name</th>
+                <th>Property Context</th>
+                <th>Restricted to be Mandatory</th>
+                <th>Restricted Enum Values</th>
+                <th>Restricted Property Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>addresses</td>
+                <td>Card</td>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+              <tr>
+                <td>emails</td>
+                <td>Card</td>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+              <tr>
+                <td>kind</td>
+                <td>Card</td>
+                <td/>
+                <td>individual</td>
+                <td/>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Card</td>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+              <tr>
+                <td>full</td>
+                <td>Address</td>
+                <td>Mandatory</td>
+                <td/>
+                <td/>
+              </tr>
+              <tr>
+                <td>components</td>
+                <td>Name</td>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+              <tr>
+                <td>full</td>
+                <td>Name</td>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+              <tr>
+                <td>kind</td>
+                <td>NameComponent</td>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+              <tr>
+                <td>value</td>
+                <td>NameComponent</td>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+            </tbody>
+          </table>
+        </dd>
+      </dl>
       <t>This profile describes contact cards that only can contain contact information for individuals, including their full postal address lines (rather than distinct address components) and their full name and distinct name components. It neither supports phonetics nor ordered components for names and addresses. The only additional contact information that is supported in this profile are email addresses.</t>
       <t>The following Card object conforms to that profile:</t>
       <sourcecode type=""><![CDATA[
@@ -219,6 +228,7 @@
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6350.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6352.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6901.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9553.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9610.xml"/>
