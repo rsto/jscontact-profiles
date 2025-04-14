@@ -77,8 +77,13 @@
         <name>JSContact Profile Name</name>
         <t>Every JSContact profile <bcp14>MUST</bcp14> have a unique name. The name <bcp14>MUST</bcp14> only contain ASCII lower case alphabetic and numeric characters, optionally separated by hyphen. Formally, it <bcp14>MUST</bcp14> be a valid "profile-name" defined in the appendix section in <xref target="profile-name-abnf"/>.</t>
       </section>
+      <section anchor="version">
+        <name>Profile Version</name>
+        <t>A JSContact profile <bcp14>MUST</bcp14> define its current version. That version identifier <bcp14>MUST</bcp14> be a valid "jsversion" value as defined in <xref target="RFC9553" section="1.9.1"/>. Any addition to the list of <xref target="properties">JSContact properties supported by that profile</xref> <bcp14>MUST</bcp14> update the current version.</t>
+        <t>Should the semantic versioning scheme not be adequate for protocol designers making use JSContact profile, then an alternative approach is to register a new JSContact profile for each new version.</t>
+      </section>
       <section anchor="properties">
-        <name>JSContact Profile Properties</name>
+        <name>Supported JSContact Properties</name>
         <t>The subset of JSContact elements supported by a profile is defined as a list of properties per object type. A JSContact property of an object type is part of this subset if one of the following conditions apply:</t>
         <ol>
           <li>It explicitly is listed as supported for that object type in that profile.</li>
@@ -99,8 +104,10 @@
       <name>Example Profile</name>
       <t>This section provides an example for a JSContact profile. This profile is just for illustration, it is not registered at IANA.</t>
       <dl newline="true">
-        <dt>Profile Name:</dt>
+        <dt>Name:</dt>
         <dd>jscontact-simple</dd>
+        <dt>Profile Version:</dt>
+        <dd>1.0</dd>
         <dt>Restricts PatchObject keys:</dt>
         <dd>Yes</dd>
         <dt>Property Registry:</dt>
@@ -114,6 +121,7 @@
                 <th>Restricted to be Mandatory</th>
                 <th>Restricted Enum Values</th>
                 <th>Restricted Property Type</th>
+                <th>Since Profile Version</th>
               </tr>
             </thead>
             <tbody>
@@ -123,6 +131,7 @@
                 <td/>
                 <td/>
                 <td/>
+                <td>1.0</td>
               </tr>
               <tr>
                 <td>emails</td>
@@ -130,6 +139,7 @@
                 <td/>
                 <td/>
                 <td/>
+                <td>1.0</td>
               </tr>
               <tr>
                 <td>kind</td>
@@ -137,6 +147,7 @@
                 <td/>
                 <td>individual</td>
                 <td/>
+                <td>1.0</td>
               </tr>
               <tr>
                 <td>name</td>
@@ -144,6 +155,7 @@
                 <td/>
                 <td/>
                 <td/>
+                <td>1.0</td>
               </tr>
               <tr>
                 <td>full</td>
@@ -151,6 +163,7 @@
                 <td>Mandatory</td>
                 <td/>
                 <td/>
+                <td>1.0</td>
               </tr>
               <tr>
                 <td>components</td>
@@ -158,6 +171,7 @@
                 <td/>
                 <td/>
                 <td/>
+                <td>1.0</td>
               </tr>
               <tr>
                 <td>full</td>
@@ -165,6 +179,7 @@
                 <td/>
                 <td/>
                 <td/>
+                <td>1.0</td>
               </tr>
               <tr>
                 <td>kind</td>
@@ -172,6 +187,7 @@
                 <td/>
                 <td/>
                 <td/>
+                <td>1.0</td>
               </tr>
               <tr>
                 <td>value</td>
@@ -179,6 +195,7 @@
                 <td/>
                 <td/>
                 <td/>
+                <td>1.0</td>
               </tr>
             </tbody>
           </table>
