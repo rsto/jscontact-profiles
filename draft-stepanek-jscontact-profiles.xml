@@ -54,25 +54,8 @@
       <name>JSContact Profiles</name>
       <t>A JSContact profile is a named subset of JSContact properties. The JSContact properties <bcp14>MUST</bcp14> be registered in the IANA JSContact registry. A JSContact extension <bcp14>MAY</bcp14> define both a new profile and new properties, as long as they are registered at the same time.</t>
       <t>A JSContact object conforms to a profile if all its properties are in the subset of properties defined by that profile and its property values comply with the profile restrictions.</t>
-      <section anchor="characteristics">
-        <name>JSContact Profile Characteristics</name>
-        <t>To define the subset of supported JSContact elements, profiles <bcp14>MAY</bcp14>:</t>
-        <ul>
-          <li>Restrict which optional properties of a JSContact object type are allowed to be set.</li>
-          <li>Require optional properties to be set, effectively making them mandatory for that profile.</li>
-          <li>Restrict the <xref target="RFC9553" section="1.7.5" sectionFormat="parens">enumerated values</xref> of a property to a non-empty subset of those values.</li>
-          <li>Restrict the value type signature of a multi-typed property e.g. only allow the value type "A" for a property having value type "A|B".</li>
-          <li>Restrict PatchObject values to only patch top-level properties, effectively requiring a PatchObject to fully replace property values. JSON Pointer keys in such restricted PatchObject objects <bcp14>MUST</bcp14> consist of exactly one <xref target="RFC6901" section="3" sectionFormat="parens">JSON Pointer reference token</xref>.</li>
-        </ul>
-        <t>Profiles <bcp14>MUST NOT</bcp14>:</t>
-        <ul>
-          <li>Define mandatory properties to be optional.</li>
-          <li>Fully replace or expand the value type signature of a property.</li>
-          <li>Change the default type of a multi-typed property.</li>
-          <li>Restrict the allowed values for any value type that is not an enumerated value. This does not apply to <xref target="RFC9553" section="1.4.1">map keys</xref>; protocol definitions <bcp14>MAY</bcp14> define and require special-purpose keys, but this is not part of a JSContact profile.</li>
-        </ul>
-        <t>A JSContact profile <bcp14>MUST</bcp14> be registered at IANA (see <xref target="iana-considerations"/>).</t>
-      </section>
+      <t>A JSContact profile <bcp14>MUST</bcp14> be registered at IANA (see <xref target="iana-considerations"/>). <xref target="example"/> illustrates the contents by example.</t>
+    </section>
       <section anchor="name">
         <name>Profile Name</name>
         <t>A JSContact profile <bcp14>MUST</bcp14> have a unique name. The name <bcp14>MUST</bcp14> only contain ASCII lower case alphabetic and numeric characters, optionally separated by hyphen. Formally, it <bcp14>MUST</bcp14> be a valid "profile-name" defined in the appendix section in <xref target="profile-name-abnf"/>.</t>
@@ -83,22 +66,33 @@
         <t>Should the semantic versioning scheme not be adequate for protocol designers making use JSContact profile, then an alternative approach is to register a new JSContact profile for each new version.</t>
       </section>
       <section anchor="properties">
-        <name>Supported JSContact Properties</name>
-        <t>The subset of JSContact elements supported by a profile is defined as a list of properties per object type. A JSContact property of an object type is part of this subset if one of the following conditions apply:</t>
+        <name>Supported Properties</name>
+        <t>The subset of JSContact object properties supported by a profile is defined by a list of object properties. A JSContact property of an object type is part of this subset if one of the following conditions apply:</t>
         <ol>
           <li>It explicitly is listed as supported for that object type in that profile.</li>
           <li>It is defined for an object type which is the value type of an explicitly listed property and no properties are listed explicitly for this object type.</li>
           <li>It is defined for the Card object and no properties are listed explicitly for the Card object type.</li>
         </ol>
         <t>A profile <bcp14>MUST</bcp14> explicitly list at least one property.</t>
-        <t>If at least one property is listed explicitly for an object type, then all mandatory properties of that object type <bcp14>MUST</bcp14> be listed (this is to allow a profile restrict an object type to only its mandatory properties). As an exceptions to this rule the following properties need not be listed, they are always supported:</t>
+        <t>If at least one property is listed explicitly for an object type, then all mandatory properties of that object type <bcp14>MUST</bcp14> be listed (this is to allow a profile restrict an object type to only its mandatory properties).</t>
+        <t>The following properties need not be listed, they are always supported:</t>
         <ul>
           <li>The "@type" of any object type that is supported by this profile.</li>
           <li>The "version" property of the Card object.</li>
-          <li>The "uid" property of the Card object.</li>
         </ul>
-        <t>Each property <bcp14>MAY</bcp14> be further restricted as outlined in <xref target="characteristics"/>. The IANA registry template in <xref target="iana-considerations"/> formally defines the format of property list entries. <xref target="example"/> illustrates this by example.</t>
+        <t>The "uid" property of the Card object is implicitly supported, unless it is explicitly not supported as outlined in <xref target="uidproperty"/>.</t>
+      <t>For each supported property, a profile <bcp14>MAY</bcp14> define an optional property to be mandatory for that profile. It also <bcp14>MAY</bcp14> restrict the value type signature of a multi-typed property e.g. only allow the value type "A" for a property having value type "A|B".</t>
+      <t>In contrast, a profile <bcp14>MUST NOT</bcp14> define mandatory properties to be optional, except for the "uid" Card object property as outlined in <xref target="uidproperty"/>. It also <bcp14>MUST NOT</bcp14> fully replace or expand the value type signature of a property, or change the default type of a multi-typed property.</t>
       </section>
+      <section anchor="uidproperty">
+        <name>Restricted "uid" Property</name>
+        <t>The <xref target="RFC9553" section="2.1.9" sectionFormat="parens">"uid" property</xref> is defined to be mandatory for the Card object. This is preferable for use in addressbooks and other contact management systems. For example, it helps deduplicating contact data when merging addressbooks, and to use the same identifier to represent contact data in both JSContact and <xref target="RFC6350">vCard Format</xref>.</t>
+        <t>Yet, protocol designer might prefer to set protocol-specific identifiers that are incompatible with the "uid" property value definition in some other Card property, or not to set any identifier at all. For this, a JSContact profile <bcp14>MAY</bcp14> define the Card "uid" property to either be optional or not supported at all for that profile.</t>
+      </section>
+      <section anchor="patchobject">
+        <name>Restricted PatchObject Keys</name>
+        <t>The JSContact <xref target="RFC9553" section="1.4.3" sectionFormat="parens">PatchObject value type</xref> allows to patch both top-level properties and nested properties in a Card object. This results in a compact representation, as only the actually changed property values are included in the patch. Notably, the <xref target="RFC9553" section="2.7.1" sectionFormat="parens">"localizations" property</xref> of the Card object uses PatchObject values to localize Card properties.</t>
+        <t>Yet, protocol designers might prefer not to support patching nested properties, typically the goal being to simplify processing of JSContact data. For this, a JSContact profile <bcp14>MAY</bcp14> restrict each JSON Pointer key in a PatchObject to consist of exactly one <xref target="RFC6901" section="3" sectionFormat="parens">JSON Pointer reference token</xref>. In context of the "localizations" property, this means that a localized Card replaces one or more top-level properties entirely.</t>
     </section>
     <section anchor="example">
       <name>Example Profile</name>
@@ -108,7 +102,9 @@
         <dd>jscontact-simple</dd>
         <dt>Profile Version:</dt>
         <dd>1.0</dd>
-        <dt>Restricts PatchObject keys:</dt>
+        <dt>Restricted "uid" Property:</dt>
+        <dd>Not Supported</dd>
+        <dt>Restricted PatchObject Keys:</dt>
         <dd>Yes</dd>
         <dt>Property Registry:</dt>
         <dd>
@@ -119,7 +115,6 @@
                 <th>Property Name</th>
                 <th>Property Context</th>
                 <th>Restricted to be Mandatory</th>
-                <th>Restricted Enum Values</th>
                 <th>Restricted Property Type</th>
                 <th>Since Profile Version</th>
               </tr>
@@ -130,13 +125,11 @@
                 <td>Card</td>
                 <td/>
                 <td/>
-                <td/>
                 <td>1.0</td>
               </tr>
               <tr>
                 <td>emails</td>
                 <td>Card</td>
-                <td/>
                 <td/>
                 <td/>
                 <td>1.0</td>
@@ -145,14 +138,19 @@
                 <td>kind</td>
                 <td>Card</td>
                 <td/>
-                <td>individual</td>
+                <td/>
+                <td>1.0</td>
+              </tr>
+              <tr>
+                <td>localizations</td>
+                <td>Card</td>
+                <td/>
                 <td/>
                 <td>1.0</td>
               </tr>
               <tr>
                 <td>name</td>
                 <td>Card</td>
-                <td/>
                 <td/>
                 <td/>
                 <td>1.0</td>
@@ -162,13 +160,11 @@
                 <td>Address</td>
                 <td>Mandatory</td>
                 <td/>
-                <td/>
                 <td>1.0</td>
               </tr>
               <tr>
                 <td>components</td>
                 <td>Name</td>
-                <td/>
                 <td/>
                 <td/>
                 <td>1.0</td>
@@ -178,13 +174,11 @@
                 <td>Name</td>
                 <td/>
                 <td/>
-                <td/>
                 <td>1.0</td>
               </tr>
               <tr>
                 <td>kind</td>
                 <td>NameComponent</td>
-                <td/>
                 <td/>
                 <td/>
                 <td>1.0</td>
@@ -194,24 +188,29 @@
                 <td>NameComponent</td>
                 <td/>
                 <td/>
-                <td/>
                 <td>1.0</td>
               </tr>
             </tbody>
           </table>
         </dd>
       </dl>
-      <t>This profile describes contact cards that only can contain contact information for individuals, including their full postal address lines (rather than distinct address components) and their full name and distinct name components. It neither supports phonetics nor ordered components for names and addresses. The only additional contact information that is supported in this profile are email addresses.</t>
+      <t>This profile describes contact cards that can only contain:</t>
+<ul>
+<li>Full postal address lines, rather than distinct address components.</li>
+<li>Full names and distinct name components, but neither phonetics nor indicate the order of components.</li>
+<li>Email addresses, without restrictions on the EmailAddress object.</li>
+<li>Localizations, with the additional restriction that PatchObject keys must not patch nested properties.</li>
+</ul>
+<t>In addition, the profile defines that the "uid" must not be set.</t>
       <t>The following Card object conforms to that profile:</t>
       <sourcecode type=""><![CDATA[
 {
   "@type": "Card",
   "version": "1.0",
-  "uid": "f5e4cd4f-4283-4d50-bd52-61d07dda971e",
   "name": {
-    "components": [
-      { "kind": "surname", "value": "Doe" },
-      { "kind": "given", "value": "Jane" }
+     "components": [
+      { "kind": "given", "value": "Akiyo" },
+      { "kind": "surname", "value": "Murakami" }
     ]
   },
   "addresses": {
@@ -221,7 +220,17 @@
   },
   "emails": {
     "e1": {
-      "address": "jane_doe@example.com"
+      "address": "akiyo@example.com"
+    }
+  },
+  "localizations": {
+    "jp": {
+      "name": {
+        "components": [
+         { "kind": "surname", "value": "村上" },
+         { "kind": "given", "value": "啓代" }
+        ]
+      }
     }
   }
 }
