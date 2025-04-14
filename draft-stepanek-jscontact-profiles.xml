@@ -74,8 +74,8 @@
         <t>A JSContact profile <bcp14>MUST</bcp14> be registered at IANA (see <xref target="iana-considerations"/>).</t>
       </section>
       <section anchor="name">
-        <name>JSContact Profile Name</name>
-        <t>Every JSContact profile <bcp14>MUST</bcp14> have a unique name. The name <bcp14>MUST</bcp14> only contain ASCII lower case alphabetic and numeric characters, optionally separated by hyphen. Formally, it <bcp14>MUST</bcp14> be a valid "profile-name" defined in the appendix section in <xref target="profile-name-abnf"/>.</t>
+        <name>Profile Name</name>
+        <t>A JSContact profile <bcp14>MUST</bcp14> have a unique name. The name <bcp14>MUST</bcp14> only contain ASCII lower case alphabetic and numeric characters, optionally separated by hyphen. Formally, it <bcp14>MUST</bcp14> be a valid "profile-name" defined in the appendix section in <xref target="profile-name-abnf"/>.</t>
       </section>
       <section anchor="version">
         <name>Profile Version</name>
