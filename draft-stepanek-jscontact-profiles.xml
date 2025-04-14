@@ -62,7 +62,7 @@
           <li>Require optional properties to be set, effectively making them mandatory for that profile.</li>
           <li>Restrict the <xref target="RFC9553" section="1.7.5" sectionFormat="parens">enumerated values</xref> of a property to a non-empty subset of those values.</li>
           <li>Restrict the value type signature of a multi-typed property e.g. only allow the value type "A" for a property having value type "A|B".</li>
-          <li>Restrict the count of <xref target="RFC6901" section="3" sectionFormat="parens">JSON Pointer reference tokens</xref> in PatchObject values to one. In effect, a PatchObject can only change a top-level property and only change that property's value entirely.</li>
+          <li>Restrict PatchObject values to only patch top-level properties, effectively requiring a PatchObject to fully replace property values. JSON Pointer keys in such restricted PatchObject objects <bcp14>MUST</bcp14> consist of exactly one <xref target="RFC6901" section="3" sectionFormat="parens">JSON Pointer reference token</xref>.</li>
         </ul>
         <t>Profiles <bcp14>MUST NOT</bcp14>:</t>
         <ul>
@@ -101,7 +101,7 @@
       <dl newline="true">
         <dt>Profile Name:</dt>
         <dd>jscontact-simple</dd>
-        <dt>Restricts PatchObject values:</dt>
+        <dt>Restricts PatchObject keys:</dt>
         <dd>Yes</dd>
         <dt>Property Registry:</dt>
         <dd>
