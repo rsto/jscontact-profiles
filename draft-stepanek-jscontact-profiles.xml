@@ -54,8 +54,7 @@
       <name>JSContact Profiles</name>
       <t>A JSContact profile is a named subset of JSContact properties. The JSContact properties <bcp14>MUST</bcp14> be registered in the IANA JSContact registry. A JSContact extension <bcp14>MAY</bcp14> define both a new profile and new properties, as long as they are registered at the same time.</t>
       <t>A JSContact object conforms to a profile if all its properties are in the subset of properties defined by that profile and its property values comply with the profile restrictions.</t>
-      <t>A JSContact profile <bcp14>MUST</bcp14> be registered at IANA (see <xref target="iana-considerations"/>). <xref target="example"/> illustrates the contents by example.</t>
-    </section>
+      <t>A JSContact profile <bcp14>MUST</bcp14> be registered at IANA (see <xref target="iana-considerations"/>).</t>
       <section anchor="name">
         <name>Profile Name</name>
         <t>A JSContact profile <bcp14>MUST</bcp14> have a unique name. The name <bcp14>MUST</bcp14> only contain ASCII lower case alphabetic and numeric characters, optionally separated by hyphen. Formally, it <bcp14>MUST</bcp14> be a valid "profile-name" defined in the appendix section in <xref target="profile-name-abnf"/>.</t>
@@ -81,18 +80,19 @@
           <li>The "version" property of the Card object.</li>
         </ul>
         <t>The "uid" property of the Card object is implicitly supported, unless it is explicitly not supported as outlined in <xref target="uidproperty"/>.</t>
-      <t>For each supported property, a profile <bcp14>MAY</bcp14> define an optional property to be mandatory for that profile. It also <bcp14>MAY</bcp14> restrict the value type signature of a multi-typed property e.g. only allow the value type "A" for a property having value type "A|B".</t>
-      <t>In contrast, a profile <bcp14>MUST NOT</bcp14> define mandatory properties to be optional, except for the "uid" Card object property as outlined in <xref target="uidproperty"/>. It also <bcp14>MUST NOT</bcp14> fully replace or expand the value type signature of a property, or change the default type of a multi-typed property.</t>
+        <t>For each supported property, a profile <bcp14>MAY</bcp14> define an optional property to be mandatory for that profile. It also <bcp14>MAY</bcp14> restrict the value type signature of a multi-typed property e.g. only allow the value type "A" for a property having value type "A|B".</t>
+        <t>In contrast, a profile <bcp14>MUST NOT</bcp14> define mandatory properties to be optional, except for the "uid" Card object property as outlined in <xref target="uidproperty"/>. It also <bcp14>MUST NOT</bcp14> fully replace or expand the value type signature of a property, or change the default type of a multi-typed property.</t>
       </section>
       <section anchor="uidproperty">
-        <name>Restricted "uid" Property</name>
+        <name>"uid" Property</name>
         <t>The <xref target="RFC9553" section="2.1.9" sectionFormat="parens">"uid" property</xref> is defined to be mandatory for the Card object. This is preferable for use in addressbooks and other contact management systems. For example, it helps deduplicating contact data when merging addressbooks, and to use the same identifier to represent contact data in both JSContact and <xref target="RFC6350">vCard Format</xref>.</t>
         <t>Yet, protocol designer might prefer to set protocol-specific identifiers that are incompatible with the "uid" property value definition in some other Card property, or not to set any identifier at all. For this, a JSContact profile <bcp14>MAY</bcp14> define the Card "uid" property to either be optional or not supported at all for that profile.</t>
       </section>
       <section anchor="patchobject">
-        <name>Restricted PatchObject Keys</name>
+        <name>PatchObject Keys</name>
         <t>The JSContact <xref target="RFC9553" section="1.4.3" sectionFormat="parens">PatchObject value type</xref> allows to patch both top-level properties and nested properties in a Card object. This results in a compact representation, as only the actually changed property values are included in the patch. Notably, the <xref target="RFC9553" section="2.7.1" sectionFormat="parens">"localizations" property</xref> of the Card object uses PatchObject values to localize Card properties.</t>
-        <t>Yet, protocol designers might prefer not to support patching nested properties, typically the goal being to simplify processing of JSContact data. For this, a JSContact profile <bcp14>MAY</bcp14> restrict each JSON Pointer key in a PatchObject to consist of exactly one <xref target="RFC6901" section="3" sectionFormat="parens">JSON Pointer reference token</xref>. In context of the "localizations" property, this means that a localized Card replaces one or more top-level properties entirely.</t>
+        <t>Yet, protocol designers might prefer not to support patching nested properties, typically the goal being to simplify processing of JSContact data. For this, a JSContact profile <bcp14>MAY</bcp14> define nested PatchObject keys to not be supported. Each JSON Pointer key in a PatchObject then <bcp14>MUST</bcp14> consist of exactly one <xref target="RFC6901" section="3" sectionFormat="parens">JSON Pointer reference token</xref>. In context of the "localizations" property, this means that a localized Card replaces one or more top-level properties entirely.</t>
+      </section>
     </section>
     <section anchor="example">
       <name>Example Profile</name>
@@ -102,10 +102,10 @@
         <dd>jscontact-simple</dd>
         <dt>Profile Version:</dt>
         <dd>1.0</dd>
-        <dt>Restricted "uid" Property:</dt>
+        <dt>"uid" Property:</dt>
         <dd>Not Supported</dd>
-        <dt>Restricted PatchObject Keys:</dt>
-        <dd>Yes</dd>
+        <dt>Nested PatchObject Keys:</dt>
+        <dd>Not Supported</dd>
         <dt>Property Registry:</dt>
         <dd>
           <table>
@@ -195,13 +195,13 @@
         </dd>
       </dl>
       <t>This profile describes contact cards that can only contain:</t>
-<ul>
-<li>Full postal address lines, rather than distinct address components.</li>
-<li>Full names and distinct name components, but neither phonetics nor indicate the order of components.</li>
-<li>Email addresses, without restrictions on the EmailAddress object.</li>
-<li>Localizations, with the additional restriction that PatchObject keys must not patch nested properties.</li>
-</ul>
-<t>In addition, the profile defines that the "uid" must not be set.</t>
+      <ul>
+        <li>Full postal address lines, rather than distinct address components.</li>
+        <li>Full names and distinct name components, but neither phonetics nor indicate the order of components.</li>
+        <li>Email addresses, without restrictions on the EmailAddress object.</li>
+        <li>Localizations, with the additional restriction that PatchObject keys must not patch nested properties.</li>
+      </ul>
+      <t>In addition, the profile defines that the "uid" must not be set.</t>
       <t>The following Card object conforms to that profile:</t>
       <sourcecode type=""><![CDATA[
 {
