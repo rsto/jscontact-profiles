@@ -52,8 +52,8 @@
     </section>
     <section anchor="jscontact-profiles">
       <name>JSContact Profiles</name>
-      <t>A JSContact profile is a named subset of JSContact elements. The JSContact elements <bcp14>MUST</bcp14> be registered in the IANA JSContact registry. A JSContact extension <bcp14>MAY</bcp14> define both a new profile and new elements, as long as they are registered at the same time.</t>
-      <t>A JSContact object conforms to a profile if all its elements are in the subset defined by that profile.</t>
+      <t>A JSContact profile is a named subset of JSContact properties. The JSContact properties <bcp14>MUST</bcp14> be registered in the IANA JSContact registry. A JSContact extension <bcp14>MAY</bcp14> define both a new profile and new properties, as long as they are registered at the same time.</t>
+      <t>A JSContact object conforms to a profile if all its properties are in the subset of properties defined by that profile and its property values comply with the profile restrictions.</t>
       <section anchor="characteristics">
         <name>JSContact Profile Characteristics</name>
         <t>To define the subset of supported JSContact elements, profiles <bcp14>MAY</bcp14>:</t>
