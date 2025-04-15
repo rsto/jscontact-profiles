@@ -24,6 +24,19 @@
         <email>rsto@fastmailteam.com</email>
       </address>
     </author>
+        <author initials="M." surname="Loffredo" fullname="Mario Loffredo">
+      <organization>IIT-CNR</organization>
+      <address>
+        <postal>
+          <street>Via Moruzzi, 1</street>
+          <city>Pisa</city>
+          <code>56124</code>
+          <country>Italy</country>
+          <region/>
+        </postal>
+        <email>mario.loffredo@iit.cnr.it</email>
+      </address>
+    </author>
     <date year="2025" month="March" day="19"/>
     <area>art</area>
     <workgroup>calext</workgroup>
