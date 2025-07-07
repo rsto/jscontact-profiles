@@ -77,6 +77,11 @@
         <t>A JSContact profile <bcp14>MUST</bcp14> define its current version. That version identifier <bcp14>MUST</bcp14> be a valid "jsversion" value as defined in <xref target="RFC9553" section="1.9.1"/>. Any addition to the list of <xref target="properties">JSContact properties supported by that profile</xref> <bcp14>MUST</bcp14> update the current version.</t>
         <t>Should the semantic versioning scheme not be adequate for protocol designers making use of JSContact profiles, then an alternative approach is to register a new JSContact profile for each new version.</t>
       </section>
+      <section anchor="patchobject">
+        <name>Nested PatchObject Keys</name>
+        <t>The JSContact <xref target="RFC9553" section="1.4.3" sectionFormat="parens">PatchObject value type</xref> allows to patch both top-level properties and nested properties in a Card object. This results in a compact representation, as only the actually changed property values are included in the patch. Notably, the <xref target="RFC9553" section="2.7.1" sectionFormat="parens">"localizations" property</xref> of the Card object uses PatchObject values to localize Card properties.</t>
+        <t>Yet, protocol designers might prefer not to support patching nested properties, typically the goal being to simplify the processing of JSContact data. For this, a JSContact profile <bcp14>MAY</bcp14> define nested PatchObject keys to not be supported. Each JSON Pointer key in a PatchObject then <bcp14>MUST</bcp14> consist of exactly one <xref target="RFC6901" section="3" sectionFormat="parens">JSON Pointer reference token</xref>. In context of the "localizations" property, this means that a localized Card replaces one or more top-level properties entirely.</t>
+      </section>
       <section anchor="properties">
         <name>Supported Properties</name>
         <t>The subset of JSContact object properties supported by a profile is defined by a list of object properties. A JSContact property of an object type is part of this subset if one of the following conditions apply:</t>
@@ -94,11 +99,6 @@
         </ul>
         <t>In contrast, a profile <bcp14>MUST NOT</bcp14> define mandatory properties to be optional. It also <bcp14>MUST NOT</bcp14> fully replace or expand the value type signature of a property, or change the default type of a multi-typed property.</t>
       </section>
-      <section anchor="patchobject">
-        <name>PatchObject Keys</name>
-        <t>The JSContact <xref target="RFC9553" section="1.4.3" sectionFormat="parens">PatchObject value type</xref> allows to patch both top-level properties and nested properties in a Card object. This results in a compact representation, as only the actually changed property values are included in the patch. Notably, the <xref target="RFC9553" section="2.7.1" sectionFormat="parens">"localizations" property</xref> of the Card object uses PatchObject values to localize Card properties.</t>
-        <t>Yet, protocol designers might prefer not to support patching nested properties, typically the goal being to simplify the processing of JSContact data. For this, a JSContact profile <bcp14>MAY</bcp14> define nested PatchObject keys to not be supported. Each JSON Pointer key in a PatchObject then <bcp14>MUST</bcp14> consist of exactly one <xref target="RFC6901" section="3" sectionFormat="parens">JSON Pointer reference token</xref>. In context of the "localizations" property, this means that a localized Card replaces one or more top-level properties entirely.</t>
-      </section>
     </section>
     <section anchor="example">
       <name>Example Profile</name>
@@ -110,7 +110,7 @@
         <dd>1.0</dd>
         <dt>Nested PatchObject Keys:</dt>
         <dd>Not Supported</dd>
-        <dt>Property Registry:</dt>
+        <dt>Properties:</dt>
         <dd>
           <table>
             <name>Properties of the "jscontact-simple" profile</name>
@@ -162,7 +162,7 @@
               <tr>
                 <td>full</td>
                 <td>Address</td>
-                <td>Mandatory</td>
+                <td>mandatory</td>
                 <td/>
                 <td>1.0</td>
               </tr>
@@ -241,7 +241,42 @@
     </section>
     <section anchor="iana-considerations" numbered="true" toc="default">
       <name>IANA Considerations</name>
-      <t>TBD</t>
+      <section anchor="iana-jscontact-profile-registry" numbered="true" toc="default">
+        <name>Creation of the JSContact Profile Registry</name>
+        <t>IANA will add the "JSContact Profile" registry to the "JSContact" registry group originally created in <xref target="RFC9553" section="3.2"/>. The purpose of this new registry is to describe protocol-specific profiles for JSContact data. The registry policy and change procedure of the "JSContact" registry group apply.</t>
+        <section anchor="iana-jscontact-profile-registry-template" numbered="true" toc="default">
+          <name>JSContact Profile Registry Template</name>
+          <dl newline="false">
+            <dt>Profile Name:</dt>
+            <dd>The name of the profile. The profile name <bcp14>MUST</bcp14> be unique and it <bcp14>MUST</bcp14> comply with the definitions of <xref target="name"/>.</dd>
+            <dt>Profile Version:</dt>
+            <dd>The current version of the profile. The version value <bcp14>MUST</bcp14> comply with the definitions of <xref target="version"/>.</dd>
+            <dt>Nested PatchObject Keys:</dt>
+            <dd>This indicates if the profile supports nested PatchObject keys, as outlined in <xref target="patchobject"/>. The verbatim value "Not Supported" indicates that this profiles does not support nested PatchObject keys, the absence of any value indicates that it does support them.</dd>
+            <dt>Properties:</dt>
+            <dd>The list of properties supported by this profile, as defined in <xref target="properties"/>. IANA will create a subregistry for each profile name, listing the properties registered using the template defined in <xref target="iana-jscontact-profile-property-template"/>.</dd>
+          </dl>
+        </section>
+        <section anchor="iana-jscontact-profile-property-template">
+          <name>JSContact Profile Property Template</name>
+          <dl newline="false">
+            <dt>Property Name:</dt>
+            <dd>The name of the property. This <bcp14>MUST</bcp14> be the name of a property registered in the "JSContact Properties" registry.</dd>
+            <dt>Property Context:</dt>
+            <dd>A comma-separated list of JSContact object types that contain the property in this profile. Each of these types <bcp14>MUST</bcp14> also be listed in the property contexts of this property in the "JSContact Properties" registry.</dd>
+            <dt>Restricted to be Mandatory:</dt>
+            <dd>This restricts the property to be mandatory in the listed property contexts, despite the property originally being defined to be optional in the same contexts. The verbatim value "mandatory" indicates that it is mandatory in this profile, the absence of any value indicates that the property is mandatory or optional according to its original definition.</dd>
+            <dt>Restricted Property Type:</dt>
+            <dd>This restricts the property value type in the listed property contexts, despite the property originally being defined to have a less restrictive type definition. If set, the value <bcp14>MUST</bcp14> be a type signature as defined <xref target="RFC9553" section="1.3.2"/> and it <bcp14>MUST</bcp14> be a subtype of the original type signature for these property contexts. The absence of any value indicates that the original type signature applies.</dd>
+            <dt>Since Profile Version:</dt>
+            <dd>This indicates the highest profile version in which this property definition got added or updated.</dd>
+          </dl>
+        </section>
+        <section>
+          <name>Initial Contents of the JSContact Profile Registry</name>
+          <t>This document does not any initial contents for the newly created registries.</t>
+        </section>
+      </section>
     </section>
     <section anchor="security-considerations" numbered="true" toc="default">
       <name>Security Considerations</name>
