@@ -252,7 +252,7 @@
             <dt>Profile Version:</dt>
             <dd>The current version of the profile. The version value <bcp14>MUST</bcp14> comply with the definitions of <xref target="version"/>.</dd>
             <dt>Nested PatchObject Keys:</dt>
-            <dd>This indicates if the profile supports nested PatchObject keys, as outlined in <xref target="patchobject"/>. The verbatim value "Not Supported" indicates that this profiles does not support nested PatchObject keys, the absence of any value indicates that it does support them.</dd>
+            <dd>This indicates if the profile supports nested PatchObject keys, as outlined in <xref target="patchobject"/>. The verbatim value "Not Supported" indicates that this profile does not support nested PatchObject keys, the absence of any value indicates that it does support them.</dd>
             <dt>Properties:</dt>
             <dd>The list of properties supported by this profile, as defined in <xref target="properties"/>. IANA will create a subregistry for each profile name, listing the properties registered using the template defined in <xref target="iana-jscontact-profile-property-template"/>.</dd>
           </dl>
@@ -267,14 +267,14 @@
             <dt>Restricted to be Mandatory:</dt>
             <dd>This restricts the property to be mandatory in the listed property contexts, despite the property originally being defined to be optional in the same contexts. The verbatim value "mandatory" indicates that it is mandatory in this profile, the absence of any value indicates that the property is mandatory or optional according to its original definition.</dd>
             <dt>Restricted Property Type:</dt>
-            <dd>This restricts the property value type in the listed property contexts, despite the property originally being defined to have a less restrictive type definition. If set, the value <bcp14>MUST</bcp14> be a type signature as defined <xref target="RFC9553" section="1.3.2"/> and it <bcp14>MUST</bcp14> be a subtype of the original type signature for these property contexts. The absence of any value indicates that the original type signature applies.</dd>
+            <dd>This restricts the property value type in the listed property contexts, despite the property originally being defined to have a less restrictive type definition. If set, the value <bcp14>MUST</bcp14> be a type signature as defined in <xref target="RFC9553" section="1.3.2"/> and it <bcp14>MUST</bcp14> be a subtype of the original type signature for these property contexts. The absence of any value indicates that the original type signature applies.</dd>
             <dt>Since Profile Version:</dt>
-            <dd>This indicates the highest profile version in which this property definition got added or updated.</dd>
+            <dd>This indicates the highest profile version in which this property definition was added or updated.</dd>
           </dl>
         </section>
         <section>
           <name>Initial Contents of the JSContact Profile Registry</name>
-          <t>This document does not any initial contents for the newly created registries.</t>
+          <t>This document does define not any initial contents for the newly created registries.</t>
         </section>
       </section>
     </section>
