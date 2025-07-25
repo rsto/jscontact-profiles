@@ -213,9 +213,9 @@
       <t>This profile describes contact cards that can only contain:</t>
       <ul>
         <li>Full postal address lines, but no address components or any other property of the Address object type.</li>
-        <li>Full names and distinct name components, but no other properties of the Name object type.</li>
+        <li>Full names and name components, but no other properties of the Name object type.</li>
         <li>Email addresses, where all properties of the EmailAddress object are supported.</li>
-        <li>Localizations, with the restriction that PatchObject keys must only patch properties of the Card object.</li>
+        <li>Localizations, with the restriction that the PatchObject must only patch properties of the Card object.</li>
       </ul>
       <t>The following Card object conforms to that profile:</t>
       <sourcecode type=""><![CDATA[
