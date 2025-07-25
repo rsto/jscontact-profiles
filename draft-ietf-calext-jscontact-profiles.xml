@@ -78,36 +78,29 @@
       </section>
       <section anchor="properties">
         <name>Supported Properties</name>
-        <t>This defines the subset of properties supported by this profile and optionally restricts the allowed property values.</t>
-        <t>The subset is defined by a list, each entry consists of the following elements:</t>
+        <t>A profile defines a list of property entries to define the set of properties supported by that profile. Each entry consists of the following elements:</t>
         <dl newline="false">
           <dt>Property Name:</dt>
-          <dd>This is the name of the property. This <bcp14>MUST</bcp14> be the name of a property registered in the "JSContact Properties" registry.</dd>
+          <dd>This is the name of the JSContact property that this entry refers to. This <bcp14>MUST</bcp14> be the name of a property registered in the "JSContact Properties" registry.</dd>
           <dt>Property Context:</dt>
-          <dd>This is a comma-separated list of JSContact object types that contain the property in this profile. Each of these types <bcp14>MUST</bcp14> also be listed in the property contexts of this property in the "JSContact Properties" registry.</dd>
+          <dd>This is a comma-separated list of JSContact object types that support this property in this profile. Each of these types <bcp14>MUST</bcp14> also be listed in the property contexts for this property in the "JSContact Properties" registry, but a profile <bcp14>MAY</bcp14> only support the property in a subset of these contexts.</dd>
           <dt>Restricted to be Mandatory:</dt>
-          <dd>This restricts the property to be mandatory in the listed property contexts, despite the property originally being defined to be optional in the same contexts. The verbatim value "mandatory" indicates that it is mandatory in this profile, the absence of any value indicates that the property is mandatory or optional according to its original definition.</dd>
+          <dd>This restricts the property to be mandatory in the listed property contexts, despite the property originally being defined to be optional in the same contexts. The verbatim value "mandatory" indicates that it is mandatory in this profile, the absence of any value indicates that the property is mandatory or optional according to its original definition. This means, a profile can make an optional property become mandatory, but it can not make a mandatory property become optional.</dd>
           <dt>Restricted Property Type:</dt>
-          <dd>This restricts the property value type in the listed property contexts, despite the property originally being defined to have a less restrictive type definition. If set, the value <bcp14>MUST</bcp14> be a type signature as defined in <xref target="RFC9553" section="1.3.2"/> and it <bcp14>MUST</bcp14> be a subtype of the original type signature for these property contexts. The absence of any value indicates that the original type signature applies.</dd>
+          <dd>This restricts the property value type in the listed property contexts, despite the property originally being defined to have a less restrictive type definition. If set, the value <bcp14>MUST</bcp14> be a type signature as defined in <xref target="RFC9553" section="1.3.2"/> and it <bcp14>MUST</bcp14> be a subtype of the original type signature for these property contexts. The absence of any value indicates that the original type signature applies. This means a profile can restrict the value types of a property, but it can not add value types for that property.</dd>
           <dt>Restricted PatchObject Keys:</dt>
           <dd>This restricts the PatchObject value of this property such that each JSON Pointer key in the PatchObject <bcp14>MUST</bcp14> consist of exactly one <xref target="RFC6901" section="3" sectionFormat="parens">JSON Pointer reference token</xref>. Doing so restricts a PatchObject to only patch properties that are set in the same object and only replace their values entirely. The verbatim value "Yes" indicates that this profile does restrict PatchObject keys, the absence of any value indicates that it does not restrict them. This <bcp14>MUST NOT</bcp14> be set to "Yes", if the property value type is not a PatchObject.</dd>
           <dt>Since Profile Version:</dt>
           <dd>This indicates the highest profile version in which this property definition was added or updated.</dd>
         </dl>
-        <t>The subset of JSContact object properties supported by a profile is defined by a list of object properties. A JSContact property of an object type is part of this subset if one of the following conditions apply:</t>
+        <t>There <bcp14>MUST NOT</bcp14> an entry for the "@type" property, it always is supported for any JSContact object in any profile. Similarly, there <bcp14>MUST NOT</bcp14> be an entry for the "version" property of the Card object, it also is supported by any profile.</t>
+        <t>The set of supported JSContact properties is then determined by the property entries as follows:</t>
         <ol>
-          <li>It explicitly is listed as supported for that object type in that profile.</li>
-          <li>It is defined for an object type which is the value type of an explicitly listed property and no properties are listed explicitly for this object type.</li>
-          <li>It is defined for the Card object and no properties are listed explicitly for the Card object type.</li>
+          <li>Initialize the set with all properties of the Card object for which a property entry names this property and contains "Card" in the Property Context. If no property entry contains "Card" in the Property Context, initialize the set with all IANA-registered Card object properties.</li>
+          <li>For every property in the set having an object type as value type, add all properties for which a property entry names that property and contains the object type in the Property Context. If no property entry contains the object type in the Property Context, add all IANA-registered properties for that object type to the set.</li>
+          <li>Repeat the previous step until no further additions are possible.</li>
         </ol>
-        <t>A profile <bcp14>MUST</bcp14> explicitly list at least one property.</t>
-        <t>If at least one property is listed explicitly for an object type, then all mandatory properties of that object type <bcp14>MUST</bcp14> be listed (this is to allow a profile restrict an object type to only its mandatory properties).</t>
-        <t>The following properties need not be listed, they are always supported:</t>
-        <ul>
-          <li>The "@type" of any object type that is supported by this profile.</li>
-          <li>The "version" property of the Card object.</li>
-        </ul>
-        <t>In contrast, a profile <bcp14>MUST NOT</bcp14> define mandatory properties to be optional. It also <bcp14>MUST NOT</bcp14> fully replace or expand the value type signature of a property, or change the default type of a multi-typed property.</t>
+        <t>A Card object is supported by the profile, if all its properties are part of the set of supported properties and all property values are valid according to the restrictions defined in the applicable property entries.</t>
       </section>
     </section>
     <section anchor="example">
@@ -222,7 +215,7 @@
         <li>Full postal address lines, but no address components or any other property of the Address object type.</li>
         <li>Full names and distinct name components, but no other properties of the Name object type.</li>
         <li>Email addresses, where all properties of the EmailAddress object are supported.</li>
-        <li>Localizations, with the restriction that PatchObject keys must only patch to-level properties in full.</li>
+        <li>Localizations, with the restriction that PatchObject keys must only patch properties of the Card object.</li>
       </ul>
       <t>The following Card object conforms to that profile:</t>
       <sourcecode type=""><![CDATA[
