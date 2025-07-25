@@ -224,8 +224,8 @@
   "version": "1.0",
   "name": {
      "components": [
-      { "kind": "given", "value": "Akiyo" },
-      { "kind": "surname", "value": "Murakami" }
+      { "kind": "given", "value": "Hayao" },
+      { "kind": "surname", "value": "Miyazaki" }
     ]
   },
   "addresses": {
@@ -235,15 +235,15 @@
   },
   "emails": {
     "e1": {
-      "address": "akiyo@example.com"
+      "address": "hayao@example.com"
     }
   },
   "localizations": {
     "jp": {
       "name": {
         "components": [
-         { "kind": "surname", "value": "村上" },
-         { "kind": "given", "value": "啓代" }
+         { "kind": "surname", "value": "宮崎" },
+         { "kind": "given", "value": "駿" }
         ]
       }
     }
