@@ -265,6 +265,14 @@
   }
 }
 ]]></sourcecode>
+    <t>Note that:</t>
+    <ul>
+      <li>The Address, Card, Name, and NameComponent object values only contain properties for which a property entry exists in the profile.</li>
+      <li>The EmailAddress object contains the "address" property. This is allowed because the profile contains a property entry for the "emails" property of the Card object, but it does not define a property entry for the EmailAddress object type. Consequently, all properties of the EmailAddress object can be set.</li>
+      <li>The "full" property of the Address object is set. It is the only property allowed to be set in that profile for Address, and the "full" property is mandatory for this profile.</li>
+      <li>The "kind" property of the the NameComponent objects is set to "surname" and "given", respectively. Since the profile does not restrict the enumerated values of this property, all valid NameComponent "kind" property values are supported.</li>
+      <li>The "kind" property of the Card object is not set. The profile restricts the enumerated values of this property to "individual" and "organization". Since "individual" is the default value for this property, there is no need to set it.</li>
+    </ul>
     </section>
     <section anchor="iana-considerations" numbered="true" toc="default">
       <name>IANA Considerations</name>
