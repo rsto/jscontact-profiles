@@ -42,7 +42,7 @@
     <workgroup>calext</workgroup>
     <keyword>JSContact</keyword>
     <abstract>
-      <t>This document defines JSContact profiles, a named subsets of JSContact elements that are supported in context of a contact data exchange protocol or other use case. It aims to facilitate using JSContact in contexts where supporting all of JSContact semantics is not appropriate.</t>
+      <t>This document defines JSContact profiles, an IANA registry for named subsets of JSContact elements. It aims to facilitate using JSContact in context of contact data exchange protocols or other use cases, in which supporting all of JSContact semantics might be inappropriate.</t>
     </abstract>
   </front>
   <middle>
@@ -54,8 +54,8 @@
     <section anchor="introduction" numbered="true" toc="default">
       <name>Introduction</name>
       <t>The <xref target="RFC9553">JSContact</xref> contact card data model and format is designed for use in address book applications and directory services. Intended as an alternative to the prevalent <xref target="RFC6350">vCard</xref> data format, it covers vCard core semantics and extensions, and provides a rich model for personal names, postal addresses and localization. All JSContact elements are relevant for some contact card use case and, similar to vCard, implementations are expected to support these elements when exchanging contact card information using protocols such as <xref target="RFC6352">CardDAV</xref> and <xref target="RFC9610">JMAP for Contacts</xref>.</t>
-      <t>In contrast, other protocols and internet standards might require to exchange <em>some</em> contact card information, but not need all of what JSContact provides. <xref target="RFC9553" section="1.7.4"/> outlines how JSContact implementations may ignore unknown JSContact elements, but this only applies to future extensions of <xref target="RFC9553"/>; they are still expected to implement all elements of the core specification. Also, the extensibility of JSContact and the requirement to preserve arbitrary contact elements might not be adequate for some protocols.</t>
-      <t>To make use of JSContact under these circumstances, this document defines a new IANA registry for JSContact that allows to register named subsets of JSContact elements. These subsets are referred to as "JSContact profiles" and are meant to bring the following benefits:</t>
+      <t>In contrast, other protocols and internet standards might require exchanging <em>some</em> contact card information, but not all of what JSContact provides. <xref target="RFC9553" section="1.7.4"/> outlines how JSContact implementations may ignore unknown JSContact elements, but this only applies to future extensions of <xref target="RFC9553"/>; they are still expected to implement all elements of the core specification. Also, the extensibility of JSContact and the requirement to preserve arbitrary contact elements might not be adequate for some protocols.</t>
+      <t>To make use of JSContact under these circumstances, this document defines a new IANA registry for JSContact that allows for registering named subsets of JSContact elements. These subsets are referred to as "JSContact profiles" and are meant to bring the following benefits:</t>
       <ul>
         <li>Protocol designers might be encouraged to use JSContact, rather than coming up with their own contacts format. This facilitates cross-protocol data exchange and migration.</li>
         <li>Different protocols use the same IANA registry to express which JSContact elements they support. This facilitates understanding their commonalities and reusing existing profiles.</li>
@@ -70,25 +70,25 @@
       <t>A JSContact object conforms to a profile if all its properties are in the subset of properties defined by that profile and the property values comply with the profile restrictions for that property.</t>
       <section anchor="name">
         <name>Profile Name</name>
-        <t>This names the profiles, each JSContact profile <bcp14>MUST</bcp14> have a unique name. The name <bcp14>MUST</bcp14> only contain ASCII lowercase alphabetic and numeric characters, optionally separated by a hyphen. Formally, it <bcp14>MUST</bcp14> be a valid "profile-name" defined in the appendix section in <xref target="profile-name-abnf"/>.</t>
+        <t>This names the profile. A JSContact profile <bcp14>MUST</bcp14> have a unique name. The name <bcp14>MUST</bcp14> only contain ASCII lowercase alphabetic and numeric characters, optionally separated by a hyphen. Formally, it <bcp14>MUST</bcp14> be a valid "profile-name" defined in the appendix section in <xref target="profile-name-abnf"/>.</t>
       </section>
       <section anchor="version">
         <name>Profile Version</name>
-        <t>This defines the current version of the profile. Each profile is versioned independently and versions numbers also are not related to values in the IANA JSContact Versions registry.  The version identifier <bcp14>MUST</bcp14> be a valid "jsversion" value as defined in <xref target="RFC9553" section="1.9.1"/>. Any addition to the list of <xref target="properties">JSContact properties supported by that profile</xref> <bcp14>MUST</bcp14> update the current version.</t>
+        <t>This defines the current version of the profile. Each profile is versioned independently and version numbers are not related to values in the IANA JSContact Versions registry.  The version identifier <bcp14>MUST</bcp14> be a valid "jsversion" value as defined in <xref target="RFC9553" section="1.9.1"/>. Any addition to the list of <xref target="properties">JSContact properties supported by that profile</xref> <bcp14>MUST</bcp14> update the current version.</t>
         <t>As a note, if a semantic versioning scheme is not adequate for protocol designers making use of JSContact profiles, then an alternative approach is to register a new JSContact profile for each new version.</t>
       </section>
       <section anchor="properties">
         <name>Supported Properties</name>
-        <t>A profile defines a list of property entries which together determine the set of properties supported by that profile. Each entry consists of the following elements:</t>
+        <t>A profile defines a list of property entries that together determine the set of properties supported by that profile. Each entry consists of the following elements:</t>
         <dl newline="false">
           <dt>Property Name:</dt>
           <dd>This is the name of the JSContact property that this entry refers to. This <bcp14>MUST</bcp14> be the property name registered in the "JSContact Properties" registry.</dd>
           <dt>Property Context:</dt>
           <dd>This is a comma-separated list of JSContact object types that support this property in this profile. Each of these types <bcp14>MUST</bcp14> also be listed in the property contexts for this property in the "JSContact Properties" registry, but a profile <bcp14>MAY</bcp14> only support the property in a subset of these contexts.</dd>
           <dt>Restricted to be Mandatory:</dt>
-          <dd>This restricts the property to be mandatory in the listed property contexts, despite the property originally being defined to be optional in the same contexts. The verbatim value "mandatory" indicates that it is mandatory in this profile, the absence of any value indicates that the property is mandatory or optional according to its original definition. This means, a profile can make an optional property become mandatory, but it can not make a mandatory property become optional.</dd>
+          <dd>This restricts the property to be mandatory in the listed property contexts, despite the property originally being defined to be optional in the same contexts. The verbatim value "mandatory" indicates that it is mandatory in this profile, the absence of any value indicates that the property is mandatory or optional according to its original definition. This means that a profile can make an optional property become mandatory, but it can not make a mandatory property become optional.</dd>
           <dt>Restricted Property Type:</dt>
-          <dd>This restricts the property value type in the listed property contexts, despite the property originally being defined to have a less restrictive type definition. If set, the value <bcp14>MUST</bcp14> be a type signature as defined in <xref target="RFC9553" section="1.3.2"/> and it <bcp14>MUST</bcp14> be a subtype of the original type signature for these property contexts. The absence of any value indicates that the original type signature applies. This means a profile can restrict the value types of a property, but it can not add value types for that property.</dd>
+          <dd>This restricts the property value type in the listed property contexts, despite the property originally being defined to have a less restrictive type definition. If set, the value <bcp14>MUST</bcp14> be a type signature as defined in <xref target="RFC9553" section="1.3.2"/> and it <bcp14>MUST</bcp14> be a subtype of the original type signature for these property contexts. The absence of any value indicates that the original type signature applies. This means that a profile can restrict the value types of a property, but it can not add value types for that property.</dd>
           <dt>Restricted Enum Values:</dt>
           <dd>This restricts the enumerated values defined for this property to a subset of those values. The values <bcp14>MUST</bcp14> be listed in the "JSContact Enum Values" registry for this property and context. The allowed values are separated by comma, the absence of any value indicates that all enumerated values are allowed. A profile <bcp14>MAY</bcp14> exclude the default enumerated value of a property, in which case all object instances <bcp14>MUST</bcp14> have this property set to one of the allowed values.</dd>
           <dt>Restricted PatchObject Keys:</dt>
@@ -96,7 +96,7 @@
           <dt>Since Profile Version:</dt>
           <dd>This indicates the highest profile version in which this property definition was added or updated.</dd>
         </dl>
-        <t>There <bcp14>MUST NOT</bcp14> be an entry for the "@type" property, it is always is supported for any JSContact object in any profile. Similarly, there <bcp14>MUST NOT</bcp14> be an entry for the "version" property of the Card object, it also is supported by any profile.</t>
+        <t>There <bcp14>MUST NOT</bcp14> be an entry for the "@type" property, it is always supported for any JSContact object in any profile. Similarly, there <bcp14>MUST NOT</bcp14> be an entry for the "version" property of the Card object, it also is supported by any profile.</t>
         <t>The set of supported JSContact properties is then determined by the property entries as follows:</t>
         <ol>
           <li>Initialize the set with all properties of the Card object for which a property entry names this property and contains "Card" in the Property Context. If no property entry contains "Card" in the Property Context, initialize the set with all IANA-registered Card object properties.</li>
@@ -271,7 +271,7 @@
       <li>The EmailAddress object contains the "address" property. This is allowed because the profile contains a property entry for the "emails" property of the Card object, but it does not define a property entry for the EmailAddress object type. Consequently, all properties of the EmailAddress object can be set.</li>
       <li>The "full" property of the Address object is set. It is the only property allowed to be set in that profile for Address, and the "full" property is mandatory for this profile.</li>
       <li>The "kind" property of the the NameComponent objects is set to "surname" and "given", respectively. Since the profile does not restrict the enumerated values of this property, all valid NameComponent "kind" property values are supported.</li>
-      <li>The "kind" property of the Card object is not set. The profile restricts the enumerated values of this property to "individual" and "organization". Since "individual" is the default value for this property, there is no need to set it.</li>
+      <li>The "kind" property of the Card object is not set. The profile restricts the enumerated values of this property to "individual" and "org". Since "individual" is the default value for this property, there is no need to set it.</li>
     </ul>
     </section>
     <section anchor="iana-considerations" numbered="true" toc="default">
@@ -305,7 +305,7 @@
         </section>
         <section>
           <name>Initial Contents of the JSContact Profile Registry</name>
-          <t>This document does define not any initial contents for the newly created registries.</t>
+          <t>This document does not define any initial contents for the newly created registries.</t>
         </section>
       </section>
     </section>
