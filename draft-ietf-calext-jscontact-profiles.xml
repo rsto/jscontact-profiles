@@ -334,7 +334,7 @@
       <figure anchor="profile-name-abnf">
         <name>ABNF Rule for JSContact Profile Name</name>
         <sourcecode name="" type="abnf"><![CDATA[
-profile-name = LALPHA *254[ ["-"] LALPHA / DIGIT ]
+profile-name = LALPHA *254( ["-"] LALPHA / DIGIT )
 
 LALPHA       = %x61-7A ; a-z
 ]]></sourcecode>
