@@ -49,7 +49,7 @@
     <section anchor="notational-conventions" numbered="true" toc="default">
       <name>Notational Conventions</name>
       <t>The key words "<bcp14>MUST</bcp14>", "<bcp14>MUST NOT</bcp14>", "<bcp14>REQUIRED</bcp14>", "<bcp14> SHALL</bcp14>", "<bcp14>SHALL NOT</bcp14>", "<bcp14>SHOULD</bcp14>", "<bcp14>SHOULD NOT</bcp14>", "<bcp14> RECOMMENDED</bcp14>", "<bcp14>NOT RECOMMENDED</bcp14>", "<bcp14>MAY</bcp14>", and "<bcp14>OPTIONAL</bcp14>" in this document are to be interpreted as described in BCP 14 <xref target="RFC2119" format="default" sectionFormat="of" derivedContent="RFC2119"/> <xref target="RFC8174" format="default" sectionFormat="of" derivedContent="RFC8174"/> when, and only when, they appear in all capitals, as shown here.</t>
-      <t>The ABNF definitions in this document use the notations of <xref target="RFC5234"/>. ABNF rules not defined in this document are defined in either <xref target="RFC5234"/> (such as the ABNF for CRLF, WSP, DQUOTE, VCHAR, ALPHA, and DIGIT) or <xref target="RFC6350"/>.</t>
+      <t>The ABNF definitions in this document use the notations of <xref target="RFC5234"/>. ABNF rules not defined in this document are defined in <xref target="RFC5234"/> (such as the ABNF for DIGIT).</t>
     </section>
     <section anchor="introduction" numbered="true" toc="default">
       <name>Introduction</name>
@@ -71,6 +71,14 @@
       <section anchor="name">
         <name>Profile Name</name>
         <t>This names the profile. A JSContact profile <bcp14>MUST</bcp14> have a unique name. The name <bcp14>MUST</bcp14> only contain ASCII lowercase alphabetic and numeric characters, optionally separated by hyphens. It <bcp14>MUST</bcp14> start with an alphabetic character and it <bcp14>MUST</bcp14> be of at least 1 character and at most 255 characters in size. Formally, it <bcp14>MUST</bcp14> be a valid "profile-name" defined in <xref target="profile-name-abnf"/>.</t>
+      <figure anchor="profile-name-abnf">
+        <name>ABNF Rule for JSContact Profile Name</name>
+        <sourcecode name="" type="abnf"><![CDATA[
+profile-name = LALPHA *( ["-"] LALPHA / DIGIT ) ; at most 255 octets in size
+
+LALPHA       = %x61-7A ; a-z
+]]></sourcecode>
+      </figure>
       </section>
       <section anchor="version">
         <name>Profile Version</name>
@@ -321,24 +329,16 @@
         <name>Normative References</name>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml"/>
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6350.xml"/>
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6352.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6901.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9553.xml"/>
+      </references>
+      <references>
+        <name>Informative References</name>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6350.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6352.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9610.xml"/>
       </references>
     </references>
-    <section>
-      <name>ABNF definition for JSContact Profile Name</name>
-      <figure anchor="profile-name-abnf">
-        <name>ABNF Rule for JSContact Profile Name</name>
-        <sourcecode name="" type="abnf"><![CDATA[
-profile-name = LALPHA *254( ["-"] LALPHA / DIGIT )
-
-LALPHA       = %x61-7A ; a-z
-]]></sourcecode>
-      </figure>
-    </section>
   </back>
 </rfc>
