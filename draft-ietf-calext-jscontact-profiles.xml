@@ -104,7 +104,7 @@ LALPHA       = %x61-7A ; a-z
           <dt>Since Profile Version:</dt>
           <dd>This indicates the highest profile version in which this property definition was added or updated.</dd>
         </dl>
-        <t>There <bcp14>MUST NOT</bcp14> be an entry for the "@type" property, it is always supported for any JSContact object in any profile. Similarly, there <bcp14>MUST NOT</bcp14> be an entry for the "version" property of the Card object, it also is supported by any profile.</t>
+        <t>All profiles <bcp14>MUST</bcp14> support "@type" and "version", and therefore profiles MUST NOT include entries for these properties.</t>
         <t>The set of supported JSContact properties is then determined by the property entries as follows:</t>
         <ol>
           <li>Initialize the set with all properties of the Card object for which a property entry names this property and contains "Card" in the Property Context. If no property entry contains "Card" in the Property Context, initialize the set with all IANA-registered Card object properties.</li>
