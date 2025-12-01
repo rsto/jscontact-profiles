@@ -105,10 +105,10 @@ LALPHA       = %x61-7A ; a-z
           <dd>This indicates the highest profile version in which this property definition was added or updated.</dd>
         </dl>
         <t>All profiles <bcp14>MUST</bcp14> support "@type" and "version", and therefore profiles MUST NOT include entries for these properties.</t>
-        <t>The set of supported JSContact properties is then determined by the property entries as follows:</t>
+        <t>The set of supported JSContact properties is then determined by the property entries and the contents of the IANA "JSContact Properties" registry, the latter being referred to here as IANA-registered properties:</t>
         <ol>
-          <li>Initialize the set with all properties of the Card object for which a property entry names this property and contains "Card" in the Property Context. If no property entry contains "Card" in the Property Context, initialize the set with all IANA-registered Card object properties.</li>
-          <li>For every property in the set having an object type as value type, add all properties for which a property entry names that property and contains the object type in the Property Context. If no property entry contains the object type in the Property Context, add all IANA-registered properties for that object type to the set.</li>
+          <li>Initialize the set with all properties of the Card object for which a property entry in the profile names this property and contains "Card" in the Property Context. If no property entry contains "Card" in the Property Context, initialize the set with all IANA-registered properties which include "Card" in the Property Context.</li>
+          <li>For every property in the set having an object type as value type, add all properties for which a property entry in the profiles names that property and contains the object type in the Property Context. If no property entry contains the object type in the Property Context, add all IANA-registered properties having a Property Context with that object type to the set.</li>
           <li>Repeat the previous step until no further additions are possible.</li>
         </ol>
         <t>A Card object is supported by the profile, if all its properties are part of the set of supported properties and all property values are valid according to the restrictions defined in the applicable property entries.</t>
