@@ -65,9 +65,9 @@
     </section>
     <section anchor="jscontact-profiles">
       <name>JSContact Profiles</name>
-      <t>A JSContact profile is a named, versioned subset of JSContact properties, value types and values. These JSContact elements <bcp14>MAY</bcp14> be further restricted by the profile, but a profile can not loosen restrictions. For example, a profile can define an originally optional property to become mandatory, but it can not make a mandatory property become optional.</t>
+      <t>A JSContact profile is a named, versioned set of JSContact properties, value types and values. These JSContact elements <bcp14>MAY</bcp14> be further restricted by the profile, but a profile can not loosen restrictions. For example, a profile can define an originally optional property to become mandatory, but it can not make a mandatory property become optional.</t>
       <t>The JSContact elements <bcp14>MUST</bcp14> be registered in the IANA JSContact registry. A JSContact extension <bcp14>MAY</bcp14> define both a new profile and new properties or other elements, as long as they are registered at the same time. A JSContact profile <bcp14>MUST</bcp14> be registered at IANA (see <xref target="iana-considerations"/>). <xref target="name"/> and <xref target="version"/> define how to name and version a JSContact profile, <xref target="properties"/> defines how to define the properties supported by that profile.</t>
-      <t>A JSContact object conforms to a profile if all its properties are in the subset of properties defined by that profile and the property values comply with the profile restrictions for that property. All such properties and values also <bcp14>MUST</bcp14> be valid (<xref target="RFC9553" section="1.7"/>.</t>
+      <t>A JSContact object conforms to a profile if all its properties are in the set of properties defined by that profile and the property values comply with the profile restrictions for that property. All such properties and values also <bcp14>MUST</bcp14> be valid (<xref target="RFC9553" section="1.7"/>.</t>
       <t>How to handle JSContact data that is valid but does not conform to the expected profile is protocol-specific. This document deliberately does not define such uncomforming data to be <em>invalid</em>. Protocol designers decide how to deal with unconforming data, of which one strategy can be to reject it as invalid. On the other hand, JSContact data that conforms to a protocol's expected profile not necessarily is valid in context of that protocol, specifications <bcp14>MAY</bcp14> define further restrictions that a profile can not express.</t>
       <section anchor="name">
         <name>Profile Name</name>
@@ -106,18 +106,22 @@ LALPHA       = %x61-7A ; a-z
           <dd>This indicates the highest profile version in which this property definition was added or updated.</dd>
         </dl>
         <t>All profiles <bcp14>MUST</bcp14> support "@type" and "version", and therefore profiles MUST NOT include entries for these properties.</t>
-        <t>The set of supported JSContact properties is then determined by the property entries and the contents of the IANA "JSContact Properties" registry, the latter being referred to here as IANA-registered properties:</t>
+      </section>
+      <section anchor="supported-properties">
+        <name>Supported Properties</name>
+        <t>The supported properties of a JSContact profile are determined by the profile's property entries and the contents of the IANA "JSContact Properties" registry, the latter being referred to here as "IANA-registered properties" for brevity.</t>
+        <t>A Card object conforms to the profile if all its properties are part of the supported properties and all property values are valid according to the restrictions defined in the applicable property entries. A PatchObject, such as the "localizations" property of the Card object, <bcp14>MUST NOT</bcp14> patch properties that are not supported properties in that profile.</t>
+        <t>The following describes the steps to determine the supported properties:</t>
         <ol>
           <li>Initialize the set with all properties of the Card object for which a property entry in the profile names this property and contains "Card" in the Property Context. If no property entry contains "Card" in the Property Context, initialize the set with all IANA-registered properties which include "Card" in the Property Context.</li>
-          <li>For every property in the set having an object type as value type, add all properties for which a property entry in the profiles names that property and contains the object type in the Property Context. If no property entry contains the object type in the Property Context, add all IANA-registered properties having a Property Context with that object type to the set.</li>
+          <li>For every property in the set having either an object type as value type, or a list or map of object types, add all properties for which a property entry in the profiles names that property and contains the object type in the Property Context. If no property entry contains the object type in the Property Context, add all IANA-registered properties having a Property Context with that object type to the set.</li>
           <li>Repeat the previous step until no further additions are possible.</li>
         </ol>
-        <t>A Card object is supported by the profile, if all its properties are part of the set of supported properties and all property values are valid according to the restrictions defined in the applicable property entries.</t>
       </section>
     </section>
     <section anchor="example">
       <name>Example Profile</name>
-      <t>This section provides an example for a JSContact profile, as it would be registered in the IANA JSContact Profiles registry. See <xref target="iana-considerations"/> for the exact meaning of each registry item. This profile is just for illustration, it is not registered at IANA.</t>
+      <t>This section provides an example for a JSContact profile and illustrates how a JSContact Card conforms to that profile. <xref target="example-supported-properties"/> describes how to determine the supported properties for that profile. The example profile is defined the same as if it would be registered in the IANA JSContact Profiles registry. See <xref target="iana-considerations"/> for the exact meaning of each registry item. This profile is just for illustration, it is not registered at IANA.</t>
       <dl newline="true">
         <dt>Name:</dt>
         <dd>jscontact-simple</dd>
@@ -243,7 +247,7 @@ LALPHA       = %x61-7A ; a-z
         <li>Email addresses, where all properties of the EmailAddress object are supported.</li>
         <li>Localizations, with the restriction that the PatchObject must only patch properties of the Card object.</li>
       </ul>
-      <t>The following Card object conforms to that profile:</t>
+      <t>The following Card object conforms to the example profile:</t>
       <sourcecode type=""><![CDATA[
 {
   "@type": "Card",
@@ -349,5 +353,87 @@ LALPHA       = %x61-7A ; a-z
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9610.xml"/>
       </references>
     </references>
+    <section anchor="example-supported-properties">
+      <name>Supported Properties Example</name>
+      <t>The following illustrates how to determine the supported properties of the <xref target="example" sectionFormat="parens">example profile</xref>, according to the steps defined in <xref target="supported-properties"/>:</t>
+      <ol>
+        <li>
+          <t>We initialize the set of supported properties with all profile properties for which the property context includes the "Card" object. The set now includes the properties:</t>
+          <ul>
+            <li>Card.addresses</li>
+            <li>Card.emails</li>
+            <li>Card.kind</li>
+            <li>Card.localizations</li>
+            <li>Card.name</li>
+          </ul>
+        </li>
+        <li>Next, we determine which of the properties in the current set have an object type as value type. These are the "Card.address", "Card.emails" and "Card.name" properties, so we need to inspect the object types "Address", "EmailAddress" and "Name".</li>
+        <li>
+          <t>For the "Address" object type, the profile explicitly lists the "full" property, so we add that and only that to the set of supported properties. It now contains:</t>
+          <ul>
+            <li>Address.full</li>
+            <li>Card.addresses</li>
+            <li>Card.emails</li>
+            <li>Card.kind</li>
+            <li>Card.localizations</li>
+            <li>Card.name</li>
+          </ul>
+          <t>The value type of the Address.full property is not an object type, so we need not consider a new object type to inspect. The remaining object types to inspect are the "EmailAddress" and "Name" objects.</t>
+        </li>
+        <li>
+          <t>For the "EmailAddress" object type, the profile does not explicitly list any property. Instead, we add properties of the "JSContact Properties" registry where the property context includes the "EmailAddress" object. The set of supported properties now contains:</t>
+          <ul>
+            <li>Address.full</li>
+            <li>Card.addresses</li>
+            <li>Card.emails</li>
+            <li>Card.kind</li>
+            <li>Card.localizations</li>
+            <li>Card.name</li>
+            <li>EmailAddress.address</li>
+            <li>EmailAddress.contexts</li>
+            <li>EmailAddress.label</li>
+            <li>EmailAddress.pref</li>
+          </ul>
+          <t>None of the newly added properties have object value types. The remaining object type to inspect is the "Name" object.</t>
+        </li>
+        <li>
+          <t>For the "Name" object type, the profile explicitly lists the "components" and "full" properties, so we add them to the set of supported properties. It now contains:</t>
+          <ul>
+            <li>Address.full</li>
+            <li>Card.addresses</li>
+            <li>Card.emails</li>
+            <li>Card.kind</li>
+            <li>Card.localizations</li>
+            <li>Card.name</li>
+            <li>EmailAddress.address</li>
+            <li>EmailAddress.contexts</li>
+            <li>EmailAddress.label</li>
+            <li>EmailAddress.pref</li>
+            <li>Name.full</li>
+            <li>Name.components</li>
+          </ul>
+          <t>The newly added Name.components property has object value type "NameComponent", so we add that to the list of object types to inspect.</t>
+        </li>
+        <li>
+          <t>For the "NameComponent" object type, the profile does not explicitly list any property. Instead, we add properties of the "JSContact Properties" registry where the property context includes the "NameComponent" object. The set of supported properties now contains:</t>
+          <ul>
+            <li>Address.full</li>
+            <li>Card.addresses</li>
+            <li>Card.emails</li>
+            <li>Card.kind</li>
+            <li>Card.localizations</li>
+            <li>Card.name</li>
+            <li>EmailAddress.address</li>
+            <li>EmailAddress.contexts</li>
+            <li>EmailAddress.label</li>
+            <li>EmailAddress.pref</li>
+            <li>NameComponent.kind</li>
+            <li>NameComponent.phonetic</li>
+            <li>NameComponent.value</li>
+          </ul>
+          <t>None of the newly added properties have object value types and there are no remaining object types to inspect. This determines the set of supported properties by that profile.</t>
+        </li>
+      </ol>
+    </section>
   </back>
 </rfc>
