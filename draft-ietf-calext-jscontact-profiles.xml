@@ -109,7 +109,7 @@ LALPHA       = %x61-7A ; a-z
       </section>
       <section anchor="supported-properties">
         <name>Supported Properties</name>
-        <t>The supported properties of a JSContact profile are determined by the profile's property entries and the contents of the IANA "JSContact Properties" registry, which is here referred to as "IANA-registered properties" for short.</t>
+	<t>The supported properties of a JSContact profile are determined by the profile's property entries and the contents of the IANA "JSContact Properties" registry, which is here referred to as "IANA-registered properties" for short. The "version" property of the Card object and the "@type" property of any object type always are supported.</t>
         <t>A Card object conforms to the profile if all its properties are part of the supported properties and all property values are valid according to the restrictions defined in the applicable property entries. A PatchObject, such as the "localizations" property of the Card object, <bcp14>MUST NOT</bcp14> patch properties that are not supported in that profile.</t>
         <t>The following describes the steps to determine the supported properties:</t>
         <ol>
@@ -117,6 +117,7 @@ LALPHA       = %x61-7A ; a-z
           <li>For every property in the set having either an object type as value type, or a list or map of object types, add all properties for which a property entry in the profiles names that property and contains the object type in the Property Context. If no property entry contains the object type in the Property Context, add all IANA-registered properties of that object type.</li>
           <li>Repeat the previous step until no other property entry exists and all object types have been considered.</li>
         </ol>
+        <t><xref target="example-supported-properties"/> describes how to determine the supported properties of the example profile in <xref target="example"/>.</t>
       </section>
     </section>
     <section anchor="example">
@@ -431,7 +432,7 @@ LALPHA       = %x61-7A ; a-z
             <li>NameComponent.phonetic</li>
             <li>NameComponent.value</li>
           </ul>
-          <t>None of the newly added properties have object value types and there are no remaining object types to inspect. This determines the set of supported properties by that profile.</t>
+          <t>None of the newly added properties have object value types and there are no remaining object types to inspect. This determines the set of supported properties by that profile, in addition to the "Card.version" and "@type" property that are always supported.</t>
         </li>
       </ol>
     </section>
