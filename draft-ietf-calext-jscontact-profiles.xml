@@ -113,9 +113,9 @@ LALPHA       = %x61-7A ; a-z
         <t>A Card object conforms to the profile if all its properties are part of the supported properties and all property values are valid according to the restrictions defined in the applicable property entries. A PatchObject, such as the "localizations" property of the Card object, <bcp14>MUST NOT</bcp14> patch properties that are not supported in that profile.</t>
         <t>The following describes the steps to determine the supported properties:</t>
         <ol>
-          <li>Initialize the set with all properties of the Card object for which a property entry in the profile names this property and contains "Card" in the Property Context. If no property entry contains "Card" in the Property Context, initialize the set with all IANA-registered properties of the Card object.</li>
-          <li>For every property in the set having either an object type as value type, or a list or map or union of object types, add all properties for which a property entry in the profiles names that property and contains the object type in the Property Context. If no property entry contains the object type in the Property Context, add all IANA-registered properties of that object type.</li>
-          <li>Repeat the previous step until no other property entry exists and all object types have been considered.</li>
+          <li>Initialize the set with all properties of the Card object for which a property entry contains "Card" in the Property Context of the profile. If no such entry exists then initialize the set with all IANA-registered properties of the Card object.</li>
+          <li>For every property in the set having either an object type as value type, or a list or map or union of object types, add all properties for which a property entry contains that type in the Property Context of the profile. If no such property entry exists then add all IANA-registered properties for that object type.</li>
+          <li>Repeat the previous step until all object types that are value types of properties in the set have been considered.</li>
         </ol>
         <t><xref target="example-supported-properties"/> describes how to determine the supported properties of the example profile in <xref target="example"/>.</t>
       </section>
@@ -370,7 +370,7 @@ LALPHA       = %x61-7A ; a-z
         </li>
         <li>Next, we determine which of the properties in the current set have an object type as value type. These are the "Card.address", "Card.emails" and "Card.name" properties, so we need to inspect the object types "Address", "EmailAddress" and "Name".</li>
         <li>
-          <t>For the "Address" object type, the profile explicitly lists the "full" property, so we add that and only that to the set of supported properties. It now contains:</t>
+          <t>For the "Address" object type, the profile has an entry for the "full" property which contains the "Address" object in the Property Context, so we add that and only that to the set of supported properties. It now contains:</t>
           <ul>
             <li>Address.full</li>
             <li>Card.addresses</li>
@@ -379,10 +379,10 @@ LALPHA       = %x61-7A ; a-z
             <li>Card.localizations</li>
             <li>Card.name</li>
           </ul>
-          <t>The value type of the Address.full property is not an object type, so we need not consider a new object type to inspect. The remaining object types to inspect are the "EmailAddress" and "Name" objects.</t>
+          <t>The value type of the "Address.full" property is not an object type, so we need not consider a new object type to inspect. The remaining object types to inspect are the "EmailAddress" and "Name" objects.</t>
         </li>
         <li>
-          <t>For the "EmailAddress" object type, the profile does not explicitly list any property. Instead, we add properties of the "JSContact Properties" registry where the property context includes the "EmailAddress" object. The set of supported properties now contains:</t>
+          <t>For the "EmailAddress" object type, the profile does not contain any entry where the Property Context contains the "EmailAddress" object. Instead, we add properties of the "JSContact Properties" registry where the property context includes the "EmailAddress" object. The set of supported properties now contains:</t>
           <ul>
             <li>Address.full</li>
             <li>Card.addresses</li>
