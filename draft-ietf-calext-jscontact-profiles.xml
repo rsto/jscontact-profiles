@@ -110,7 +110,7 @@ LALPHA       = %x61-7A ; a-z
       <section anchor="supported-properties">
         <name>Supported Properties</name>
         <t>The supported properties of a JSContact profile are determined by the profile's property entries and the contents of the IANA "JSContact Properties" registry, which is here referred to as "IANA-registered properties" for short.</t>
-        <t>A Card object is profile-compliant if all its properties are part of the supported properties and all property values are valid according to the restrictions defined in the applicable property entries. A PatchObject, such as the "localizations" property of the Card object, <bcp14>MUST NOT</bcp14> patch properties that are not supported in that profile.</t>
+        <t>A Card object conforms to the profile if all its properties are part of the supported properties and all property values are valid according to the restrictions defined in the applicable property entries. A PatchObject, such as the "localizations" property of the Card object, <bcp14>MUST NOT</bcp14> patch properties that are not supported in that profile.</t>
         <t>The following describes the steps to determine the supported properties:</t>
         <ol>
           <li>Initialize the set with all properties of the Card object for which a property entry in the profile names this property and contains "Card" in the Property Context. If no property entry contains "Card" in the Property Context, initialize the set with all IANA-registered properties of the Card object.</li>
