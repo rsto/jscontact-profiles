@@ -109,12 +109,12 @@ LALPHA       = %x61-7A ; a-z
       </section>
       <section anchor="supported-properties">
         <name>Supported Properties</name>
-	<t>The supported properties of a JSContact profile are determined by the profile's property entries and the contents of the IANA "JSContact Properties" registry, which is here referred to as "IANA-registered properties" for short. The "version" property of the Card object and the "@type" property of any object type always are supported.</t>
-        <t>A Card object complies with the profile if all its properties are part of the supported properties and all property values are valid according to the restrictions defined in the applicable property entries. A PatchObject, such as the "localizations" property of the Card object, <bcp14>MUST NOT</bcp14> patch properties that are not supported in that profile.</t>
+        <t>The supported properties of a JSContact profile are determined by the profile's property entries and the contents of the IANA "JSContact Properties" registry, which is here referred to as "IANA-registered properties" for short. The "version" property of the Card object and the "@type" property of any object type always are supported.</t>
+        <t>A Card object complies with the profile if all its properties are part of the supported properties and all property values are valid according to the restrictions defined in the applicable property entries. A PatchObject <bcp14>MUST NOT</bcp14> patch properties that are not supported in that profile.</t>
         <t>The following describes the steps to determine the supported properties:</t>
         <ol>
           <li>Initialize the set with all properties of the Card object for which a property entry contains "Card" in the Property Context of the profile. If no such entry exists then initialize the set with all IANA-registered properties of the Card object.</li>
-          <li>For every property in the set having either an object type as value type, or a list or map or union of object types, add all properties for which a property entry contains that type in the Property Context of the profile. If no such property entry exists then add all IANA-registered properties for that object type.</li>
+          <li>For every property in the set having either an object type as value type, or a list or map or union of object types, add all properties for which a property entry contains those object types in the Property Context of the profile. If no such property entry exists then add all IANA-registered properties for the object types.</li>
           <li>Repeat the previous step until all object types that are value types of properties in the set have been considered.</li>
         </ol>
         <t><xref target="example-supported-properties"/> describes how to determine the supported properties of the example profile in <xref target="example"/>.</t>
