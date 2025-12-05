@@ -114,7 +114,7 @@ LALPHA       = %x61-7A ; a-z
         <t>The following describes the steps to determine the supported properties:</t>
         <ol>
           <li>Initialize the set with all properties of the Card object for which a property entry in the profile names this property and contains "Card" in the Property Context. If no property entry contains "Card" in the Property Context, initialize the set with all IANA-registered properties of the Card object.</li>
-          <li>For every property in the set having either an object type as value type, or a list or map of object types, add all properties for which a property entry in the profiles names that property and contains the object type in the Property Context. If no property entry contains the object type in the Property Context, add all IANA-registered properties of that object type.</li>
+          <li>For every property in the set having either an object type as value type, or a list or map or union of object types, add all properties for which a property entry in the profiles names that property and contains the object type in the Property Context. If no property entry contains the object type in the Property Context, add all IANA-registered properties of that object type.</li>
           <li>Repeat the previous step until no other property entry exists and all object types have been considered.</li>
         </ol>
         <t><xref target="example-supported-properties"/> describes how to determine the supported properties of the example profile in <xref target="example"/>.</t>
