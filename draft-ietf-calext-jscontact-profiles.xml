@@ -67,8 +67,8 @@
       <name>JSContact Profiles</name>
       <t>A JSContact profile is a named, versioned set of JSContact properties, value types and values. These JSContact elements <bcp14>MAY</bcp14> be further restricted by the profile, but a profile can not loosen restrictions. For example, a profile can define an originally optional property to become mandatory, but it can not make a mandatory property become optional.</t>
       <t>The JSContact elements <bcp14>MUST</bcp14> be registered in the IANA JSContact registry. A JSContact extension <bcp14>MAY</bcp14> define both a new profile and new properties or other elements, as long as they are registered at the same time. A JSContact profile <bcp14>MUST</bcp14> be registered at IANA (see <xref target="iana-considerations"/>). <xref target="name"/> and <xref target="version"/> define how to name and version a JSContact profile, <xref target="properties"/> defines how to define the properties supported by that profile.</t>
-      <t>A JSContact object conforms to a profile if all its properties are in the set of properties defined by that profile and the property values comply with the profile restrictions for that property. All such properties and values also <bcp14>MUST</bcp14> be valid (<xref target="RFC9553" section="1.7"/>.</t>
-      <t>The handling of valid JSContact data that does not conform to the expected profile is protocol-specific. This document deliberately does not define such non-conforming data as <em>invalid</em>. Profile designers decide on their own strategies for handling non-conforming data, one of which may be to reject it as invalid. On the other hand, JSContact data that conforms to the profile defined for a protocol may not be valid in the context of that protocol; the specifications <bcp14>MAY</bcp14> define additional restrictions that a profile cannot express.</t>
+      <t>A JSContact object complies with a profile if all its properties are in the set of properties defined by that profile and the property values comply with the profile restrictions for that property. All such properties and values also <bcp14>MUST</bcp14> be valid (<xref target="RFC9553" section="1.7"/>.</t>
+      <t>Handling JSContact data that is valid but that does not comply with the expected profile is protocol-specific. This document deliberately does not define such non-compliant data as <em>invalid</em>. Profile designers decide on their own strategies for handling non-compliant data, one of which may be to reject it as invalid. On the other hand, JSContact data that complies with the profile that is defined for a protocol may still not be valid in the context of that protocol; the specifications <bcp14>MAY</bcp14> define additional restrictions that a profile cannot express.</t>
       <section anchor="name">
         <name>Profile Name</name>
         <t>A JSContact profile has a unique name. The name <bcp14>MUST</bcp14> only contain ASCII lowercase alphabetic and numeric characters, optionally separated by hyphens. It <bcp14>MUST</bcp14> start with an alphabetic character and it <bcp14>MUST</bcp14> be of at least 1 character and at most 255 characters in size. Formally, it <bcp14>MUST</bcp14> be a valid "profile-name" defined in <xref target="profile-name-abnf"/>.</t>
@@ -110,7 +110,7 @@ LALPHA       = %x61-7A ; a-z
       <section anchor="supported-properties">
         <name>Supported Properties</name>
 	<t>The supported properties of a JSContact profile are determined by the profile's property entries and the contents of the IANA "JSContact Properties" registry, which is here referred to as "IANA-registered properties" for short. The "version" property of the Card object and the "@type" property of any object type always are supported.</t>
-        <t>A Card object conforms to the profile if all its properties are part of the supported properties and all property values are valid according to the restrictions defined in the applicable property entries. A PatchObject, such as the "localizations" property of the Card object, <bcp14>MUST NOT</bcp14> patch properties that are not supported in that profile.</t>
+        <t>A Card object complies with the profile if all its properties are part of the supported properties and all property values are valid according to the restrictions defined in the applicable property entries. A PatchObject, such as the "localizations" property of the Card object, <bcp14>MUST NOT</bcp14> patch properties that are not supported in that profile.</t>
         <t>The following describes the steps to determine the supported properties:</t>
         <ol>
           <li>Initialize the set with all properties of the Card object for which a property entry contains "Card" in the Property Context of the profile. If no such entry exists then initialize the set with all IANA-registered properties of the Card object.</li>
@@ -122,7 +122,7 @@ LALPHA       = %x61-7A ; a-z
     </section>
     <section anchor="example">
       <name>Example Profile</name>
-      <t>This section provides an example for a JSContact profile and illustrates how a JSContact Card conforms to that profile. <xref target="example-supported-properties"/> describes how to determine the supported properties for that profile. The example profile is defined the same as if it would be registered in the IANA JSContact Profiles registry. See <xref target="iana-considerations"/> for the exact meaning of each registry item. This profile is just for illustration, it is not registered at IANA.</t>
+      <t>This section provides an example for a JSContact profile and illustrates how a JSContact Card complies with that profile. <xref target="example-supported-properties"/> describes how to determine the supported properties for that profile. The example profile is defined the same as if it would be registered in the IANA JSContact Profiles registry. See <xref target="iana-considerations"/> for the exact meaning of each registry item. This profile is just for illustration, it is not registered at IANA.</t>
       <dl newline="true">
         <dt>Name:</dt>
         <dd>jscontact-simple</dd>
@@ -248,7 +248,7 @@ LALPHA       = %x61-7A ; a-z
         <li>Email addresses, where all properties of the EmailAddress object are supported.</li>
         <li>Localizations, with the restriction that the PatchObject must only patch properties of the Card object.</li>
       </ul>
-      <t>The following Card object conforms to the example profile:</t>
+      <t>The following Card object complies with the example profile:</t>
       <sourcecode type=""><![CDATA[
 {
   "@type": "Card",
