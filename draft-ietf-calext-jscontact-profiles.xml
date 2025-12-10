@@ -295,13 +295,13 @@ LALPHA       = %x61-7A ; a-z
       <section anchor="iana-jscontact-profile-registry" numbered="true" toc="default">
         <name>Creation of the JSContact Profile Registry</name>
         <t>IANA will add the "JSContact Profile" registry to the "JSContact" registry group. The purpose of this new registry is to register profiles for JSContact data. The registry policy to add a new profile to this registry is "Specification Required", while the registry policy to update an existing profile is "Expert Review". The change controller is IETF.</t>
-        <t>Designated experts assert that all proposed assignments are valid according to the definitions in this document, e.g. they check that proposed assignment values are syntactically valid, that only known property names are referred to, that type restrictions do not incorrectly alter the type of a property, and that changes to a registered profile update the profile version. On the other hand, designated experts do not decide the contents of the profile as long as the assigments are valid.</t>
-        <t>A profile in this registry consists of the following assigments:</t>
+        <t>Designated experts assert that all proposed assignments are valid according to the definitions in this document, e.g. they check that proposed assignment values are syntactically valid, that only known property names are referred to, that type restrictions do not incorrectly alter the type of a property, and that changes to a registered profile update the profile version. On the other hand, designated experts do not decide the contents of the profile as long as the assignments are valid.</t>
+        <t>A profile in this registry consists of the following assignments:</t>
         <dl newline="true">
           <dt>Name:</dt>
           <dd>This is the name of the profile. This field <bcp14>MUST NOT</bcp14> be empty and is immutable after creation. The name <bcp14>MUST</bcp14> be unique among all registered profiles and <bcp14>MUST</bcp14> comply with the definitions in <xref target="name"/>.</dd>
           <dt>Profile Version:</dt>
-          <dd>This is the current version of this profile. This field <bcp14>MUST NOT</bcp14> be empty. The value <bcp14>MUST</bcp14> comply with the definitions in <xref target="version"/>. The value for a newly registed profile is "1.0".</dd>
+          <dd>This is the current version of this profile. This field <bcp14>MUST NOT</bcp14> be empty. The value <bcp14>MUST</bcp14> comply with the definitions in <xref target="version"/>. The value for a newly registered profile is "1.0".</dd>
           <dt>Reference:</dt>
           <dd>This refers to the specification of the protocol or use case for which this profile applies. This field <bcp14>MUST NOT</bcp14> be empty.</dd>
           <dt>Properties:</dt>
