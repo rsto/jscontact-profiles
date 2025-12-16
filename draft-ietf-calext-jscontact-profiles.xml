@@ -121,14 +121,15 @@ LALPHA       = %x61-7A ; a-z
     <section anchor="example">
       <name>Example Profile</name>
       <t>This section provides an example for a JSContact profile and illustrates how a JSContact Card complies with that profile. <xref target="example-supported-properties"/> describes how to determine the supported properties for that profile. The example profile is defined the same as if it would be registered in the IANA JSContact Profiles registry. See <xref target="iana-considerations"/> for the exact meaning of each registry item. This profile is just for illustration, it is not registered at IANA.</t>
+      <t>The following assignments would be registered at IANA if this were a real profile:</t>
       <dl newline="true">
         <dt>Name:</dt>
         <dd>jscontact-simple</dd>
         <dt>Reference:</dt>
-        <dd>This document, <xref target="example"/></dd>
-        <dt>Properties:</dt>
-        <dd>
-          <table>
+        <dd>This document, <xref target="example-profile-properties"/></dd>
+      </dl>
+      <t>The following table defines the properties of that profile:</t>
+          <table anchor="example-profile-properties">
             <name>Properties of the "jscontact-simple" profile</name>
             <thead>
               <tr>
@@ -223,8 +224,6 @@ LALPHA       = %x61-7A ; a-z
               </tr>
             </tbody>
           </table>
-        </dd>
-      </dl>
       <t>This profile describes contact cards that can only contain:</t>
       <ul>
         <li>Contact cards for individuals and organizations, but no other kinds such as groups or devices.</li>
