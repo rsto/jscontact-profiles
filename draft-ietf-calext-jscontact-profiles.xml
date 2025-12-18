@@ -134,7 +134,7 @@ LALPHA       = %x61-7A ; a-z
         <dt>Reference:</dt>
         <dd>This document, <xref target="example-profile-properties"/></dd>
       </dl>
-      <t>The following table defines the properties of that profile:</t>
+      <t>The following table defines the properties of that profile. This profile does not specify any "Restricted Property Type" and the according column is omitted.</t>
       <table anchor="example-profile-properties">
         <name>Properties of the "jscontact-simple" profile</name>
         <thead>
@@ -142,7 +142,6 @@ LALPHA       = %x61-7A ; a-z
             <th>Property Name</th>
             <th>Property Context</th>
             <th>Restricted Attributes</th>
-            <th>Restricted Property Type</th>
             <th>Restricted Enum Values</th>
             <th>Restricted PatchObject</th>
           </tr>
@@ -154,12 +153,10 @@ LALPHA       = %x61-7A ; a-z
             <td/>
             <td/>
             <td/>
-            <td/>
           </tr>
           <tr>
             <td>emails</td>
             <td>Card</td>
-            <td/>
             <td/>
             <td/>
             <td/>
@@ -168,14 +165,12 @@ LALPHA       = %x61-7A ; a-z
             <td>kind</td>
             <td>Card</td>
             <td/>
-            <td/>
             <td>individual,org</td>
             <td/>
           </tr>
           <tr>
             <td>localizations</td>
             <td>Card</td>
-            <td/>
             <td/>
             <td/>
             <td>yes</td>
@@ -186,13 +181,11 @@ LALPHA       = %x61-7A ; a-z
             <td/>
             <td/>
             <td/>
-            <td/>
           </tr>
           <tr>
             <td>full</td>
             <td>Address</td>
             <td>mandatory</td>
-            <td/>
             <td/>
             <td/>
           </tr>
@@ -202,12 +195,10 @@ LALPHA       = %x61-7A ; a-z
             <td/>
             <td/>
             <td/>
-            <td/>
           </tr>
           <tr>
             <td>full</td>
             <td>Name</td>
-            <td/>
             <td/>
             <td/>
             <td/>
@@ -218,12 +209,10 @@ LALPHA       = %x61-7A ; a-z
             <td/>
             <td/>
             <td/>
-            <td/>
           </tr>
           <tr>
             <td>value</td>
             <td>NameComponent</td>
-            <td/>
             <td/>
             <td/>
             <td/>
