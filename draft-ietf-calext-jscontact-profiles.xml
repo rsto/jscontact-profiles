@@ -66,7 +66,7 @@
     <section anchor="jscontact-profiles">
       <name>JSContact Profiles</name>
       <t>A JSContact profile is a named and versioned set of JSContact properties, value types and values. These JSContact elements <bcp14>MAY</bcp14> be further restricted by the profile, but a profile <bcp14>MUST NOT</bcp14> loosen restrictions. For example, a profile can define an originally optional property to become mandatory, but it can not make a mandatory property become optional.</t>
-      <t>The JSContact elements <bcp14>MUST</bcp14> be registered in the <xref target="IANA.jscontact">IANA JSContact registry</xref>. A JSContact extension <bcp14>MAY</bcp14> define both a new profile and new properties or other elements, as long as they are registered at the same time. A JSContact profile <bcp14>MUST</bcp14> be registered at IANA (see <xref target="iana-considerations"/>). <xref target="name"/> defines how to name a JSContact profile, <xref target="version"/> defines how to version it, <xref target="properties"/> defines how to specify the properties supported by that profile.</t>
+      <t>The JSContact elements <bcp14>MUST</bcp14> be registered in the <xref target="IANA.jscontact">IANA JSContact registry</xref>. A JSContact profile <bcp14>MUST</bcp14> be registered at IANA (see <xref target="iana-considerations"/>). <xref target="name"/> defines how to name a JSContact profile, <xref target="version"/> defines how to version it, <xref target="properties"/> defines how to specify the properties supported by that profile.</t>
       <t>A JSContact object complies with a profile if all its properties are in the set of properties defined by that profile and the property values comply with the profile restrictions for that property. A JSContact object can comply with multiple profiles, even with profiles that weren't defined at the time when the JSContact data was created. Accordingly, this document does not specify any means for JSContact data to communicate which profiles it complies with, e.g. it does not define a "profile" property for the Card object.</t>
       <t>All properties and values of a JSContact object that complies with a profile <bcp14>MUST</bcp14> also be valid (<xref target="RFC9553" section="1.7"/>). Handling JSContact data that is valid but that does not comply with the expected profile is protocol-specific. This document deliberately does not define such non-compliant data as <em>invalid</em>. Profile designers decide on their own strategies for handling non-compliant data, one of which may be to reject it as invalid. JSContact data that complies with a profile may still not be valid in the context of that protocol; the protocol specification <bcp14>MAY</bcp14> define additional restrictions that a profile cannot express.</t>
       <section anchor="name">
@@ -265,7 +265,7 @@ lalpha       = %x61-7A ; a-z
         <li>The Address, Card, Name, and NameComponent object values only contain properties for which a property entry exists in the profile.</li>
         <li>The EmailAddress object contains the "address" property. This is allowed because the profile contains a property entry for the "emails" property of the Card object, but it does not define entries for the EmailAddress object properties. Consequently, all properties of the EmailAddress object can be set.</li>
         <li>The "full" property of the Address object is set. It is the only property allowed to be set in that profile for Address, and the "full" property is mandatory for this profile.</li>
-        <li>The "kind" property of the the NameComponent objects is set to "surname" and "given", respectively. Since the profile does not restrict the enumerated values of this property, all valid NameComponent "kind" property values are supported.</li>
+        <li>The "kind" property of the NameComponent objects is set to "surname" and "given", respectively. Since the profile does not restrict the enumerated values of this property, all valid NameComponent "kind" property values are supported.</li>
         <li>The "kind" property of the Card object is not set. The profile restricts the enumerated values of this property to "individual" and "org". Since "individual" is the default value for this property, there is no need to set it.</li>
       </ul>
     </section>
@@ -283,7 +283,7 @@ lalpha       = %x61-7A ; a-z
           <dt>Version:</dt>
           <dd>This is the version number of the profile. It <bcp14>MUST</bcp14> comply with the definitions in <xref target="version"/>.</dd>
           <dt>Reference:</dt>
-          <dd>This refers to the specifications of the protocol or use case for which this profile applies. The reference <bcp14>MUST</bcp14> must include the section number or name that defines or updates the property entries for this profile, as defined in <xref target="properties"/>.</dd>
+          <dd>This refers to the specifications of the protocol or use case for which this profile applies. The reference <bcp14>MUST</bcp14> include the section number or name that defines or updates the property entries for this profile, as defined in <xref target="properties"/>.</dd>
         </dl>
       </section>
       <section>
