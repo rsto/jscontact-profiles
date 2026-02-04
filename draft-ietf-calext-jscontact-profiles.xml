@@ -124,102 +124,8 @@ lalpha       = %x61-7A ; a-z
     </section>
     <section anchor="example">
       <name>Example Profile</name>
-      <t>This section provides an example for a JSContact profile and illustrates how a JSContact Card complies with that profile. <xref target="example-supported-properties"/> describes how to determine the supported properties for that profile. The example profile is defined the same as if it would be registered in the IANA JSContact Profiles registry. See <xref target="iana-considerations"/> for the exact meaning of each registry item. This profile is just for illustration, it is not registered at IANA.</t>
-      <t>The following assignments would be registered at IANA if this were a real profile:</t>
-      <dl newline="true">
-        <dt>Name:</dt>
-        <dd>jscontact-simple-example</dd>
-        <dt>Version:</dt>
-        <dd>1</dd>
-        <dt>Reference:</dt>
-        <dd>This document, <xref target="example-profile-properties"/></dd>
-      </dl>
-      <t>The following table defines the properties of that profile. This profile does not specify any "Restricted Property Type" and the according column is omitted.</t>
-      <table anchor="example-profile-properties">
-        <name>Properties of the "jscontact-simple-example" profile</name>
-        <thead>
-          <tr>
-            <th>Property Name</th>
-            <th>Property Context</th>
-            <th>Restricted Attributes</th>
-            <th>Restricted Enum Values</th>
-            <th>Restricted PatchObject</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>addresses</td>
-            <td>Card</td>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-          <tr>
-            <td>emails</td>
-            <td>Card</td>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-          <tr>
-            <td>kind</td>
-            <td>Card</td>
-            <td/>
-            <td>individual,org</td>
-            <td/>
-          </tr>
-          <tr>
-            <td>localizations</td>
-            <td>Card</td>
-            <td/>
-            <td/>
-            <td>yes</td>
-          </tr>
-          <tr>
-            <td>name</td>
-            <td>Card</td>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-          <tr>
-            <td>full</td>
-            <td>Address</td>
-            <td>mandatory</td>
-            <td/>
-            <td/>
-          </tr>
-          <tr>
-            <td>components</td>
-            <td>Name</td>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-          <tr>
-            <td>full</td>
-            <td>Name</td>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-          <tr>
-            <td>kind</td>
-            <td>NameComponent</td>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-          <tr>
-            <td>value</td>
-            <td>NameComponent</td>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-        </tbody>
-      </table>
-      <t>This profile describes contact cards that can only contain:</t>
+      <t>This section provides an example for a JSContact profile and illustrates how a JSContact Card complies with that profile.</t>
+      <t>The properties of that example profile are defined in <xref target="example-profile-properties"/>. This profile describes contact cards that can only contain:</t>
       <ul>
         <li>Contact cards for individuals and organizations, but no other kinds such as groups or devices.</li>
         <li>Full postal address lines, but no address components or any other property of the Address object type.</li>
@@ -227,8 +133,156 @@ lalpha       = %x61-7A ; a-z
         <li>Email addresses, where all properties of the EmailAddress object are supported.</li>
         <li>Localizations, with the restriction that the PatchObject must only patch properties of the Card object.</li>
       </ul>
-      <t>The following Card object complies with the example profile:</t>
-      <sourcecode type=""><![CDATA[
+      <t><xref target="example-supported-properties"/> describes how to determine the supported properties for that profile.</t>
+      <t>An example for JSContact data that complies with that profile is shown in <xref target="example-profile-card"/>. An example for its fictive IANA registration is shown in <xref target="example-profile-iana"/>. This profile is just for illustration, it is not registered at IANA.</t>
+      <section anchor="example-profile-properties">
+        <name>Example Profile Properties</name>
+        <t>The following entries define properties of that profile:</t>
+        <dl spacing="compact">
+          <dt>Property Name</dt>
+          <dd>addresses</dd>
+          <dt>Property Context</dt>
+          <dd>Card</dd>
+          <dt>Restricted Attributes</dt>
+          <dd/>
+          <dt>Restricted Property Type</dt>
+          <dd/>
+          <dt>Restricted Enum Values</dt>
+          <dd/>
+          <dt>Restricted PatchObject</dt>
+          <dd/>
+        </dl>
+        <dl spacing="compact">
+          <dt>Property Name</dt>
+          <dd>emails</dd>
+          <dt>Property Context</dt>
+          <dd>Card</dd>
+          <dt>Restricted Attributes</dt>
+          <dd/>
+          <dt>Restricted Property Type</dt>
+          <dd/>
+          <dt>Restricted Enum Values</dt>
+          <dd/>
+          <dt>Restricted PatchObject</dt>
+          <dd/>
+        </dl>
+        <dl spacing="compact">
+          <dt>Property Name</dt>
+          <dd>kind</dd>
+          <dt>Property Context</dt>
+          <dd>Card</dd>
+          <dt>Restricted Attributes</dt>
+          <dd/>
+          <dt>Restricted Property Type</dt>
+          <dd/>
+          <dt>Restricted Enum Values</dt>
+          <dd>individual,org</dd>
+          <dt>Restricted PatchObject</dt>
+          <dd/>
+        </dl>
+        <dl spacing="compact">
+          <dt>Property Name</dt>
+          <dd>localizations</dd>
+          <dt>Property Context</dt>
+          <dd>Card</dd>
+          <dt>Restricted Attributes</dt>
+          <dd/>
+          <dt>Restricted Property Type</dt>
+          <dd/>
+          <dt>Restricted Enum Values</dt>
+          <dd/>
+          <dt>Restricted PatchObject</dt>
+          <dd>yes</dd>
+        </dl>
+        <dl spacing="compact">
+          <dt>Property Name</dt>
+          <dd>name</dd>
+          <dt>Property Context</dt>
+          <dd>Card</dd>
+          <dt>Restricted Attributes</dt>
+          <dd/>
+          <dt>Restricted Property Type</dt>
+          <dd/>
+          <dt>Restricted Enum Values</dt>
+          <dd/>
+          <dt>Restricted PatchObject</dt>
+          <dd/>
+        </dl>
+        <dl spacing="compact">
+          <dt>Property Name</dt>
+          <dd>full</dd>
+          <dt>Property Context</dt>
+          <dd>Address</dd>
+          <dt>Restricted Attributes</dt>
+          <dd>mandatory</dd>
+          <dt>Restricted Property Type</dt>
+          <dd/>
+          <dt>Restricted Enum Values</dt>
+          <dd/>
+          <dt>Restricted PatchObject</dt>
+          <dd/>
+        </dl>
+        <dl spacing="compact">
+          <dt>Property Name</dt>
+          <dd>components</dd>
+          <dt>Property Context</dt>
+          <dd>Name</dd>
+          <dt>Restricted Attributes</dt>
+          <dd/>
+          <dt>Restricted Property Type</dt>
+          <dd/>
+          <dt>Restricted Enum Values</dt>
+          <dd/>
+          <dt>Restricted PatchObject</dt>
+          <dd/>
+        </dl>
+        <dl spacing="compact">
+          <dt>Property Name</dt>
+          <dd>full</dd>
+          <dt>Property Context</dt>
+          <dd>Name</dd>
+          <dt>Restricted Attributes</dt>
+          <dd/>
+          <dt>Restricted Property Type</dt>
+          <dd/>
+          <dt>Restricted Enum Values</dt>
+          <dd/>
+          <dt>Restricted PatchObject</dt>
+          <dd/>
+        </dl>
+        <dl spacing="compact">
+          <dt>Property Name</dt>
+          <dd>kind</dd>
+          <dt>Property Context</dt>
+          <dd>NameComponent</dd>
+          <dt>Restricted Attributes</dt>
+          <dd/>
+          <dt>Restricted Property Type</dt>
+          <dd/>
+          <dt>Restricted Enum Values</dt>
+          <dd/>
+          <dt>Restricted PatchObject</dt>
+          <dd/>
+        </dl>
+        <dl spacing="compact">
+          <dt>Property Name</dt>
+          <dd>value</dd>
+          <dt>Property Context</dt>
+          <dd>NameComponent</dd>
+          <dt>Restricted Attributes</dt>
+          <dd/>
+          <dt>Restricted Property Type</dt>
+          <dd/>
+          <dt>Restricted Enum Values</dt>
+          <dd/>
+          <dt>Restricted PatchObject</dt>
+          <dd/>
+        </dl>
+      </section>
+      <section anchor="example-profile-card">
+        <name>Example Profile Card Object</name>
+        <t>The following Card object complies with the example profile:</t>
+        <sourcecode type=""><![CDATA[
 {
   "@type": "Card",
   "version": "1.0",
@@ -260,14 +314,28 @@ lalpha       = %x61-7A ; a-z
   }
 }
 ]]></sourcecode>
-      <t>Note that:</t>
-      <ul>
-        <li>The Address, Card, Name, and NameComponent object values only contain properties for which a property entry exists in the profile.</li>
-        <li>The EmailAddress object contains the "address" property. This is allowed because the profile contains a property entry for the "emails" property of the Card object, but it does not define entries for the EmailAddress object properties. Consequently, all properties of the EmailAddress object can be set.</li>
-        <li>The "full" property of the Address object is set. It is the only property allowed to be set in that profile for Address, and the "full" property is mandatory for this profile.</li>
-        <li>The "kind" property of the NameComponent objects is set to "surname" and "given", respectively. Since the profile does not restrict the enumerated values of this property, all valid NameComponent "kind" property values are supported.</li>
-        <li>The "kind" property of the Card object is not set. The profile restricts the enumerated values of this property to "individual" and "org". Since "individual" is the default value for this property, there is no need to set it.</li>
-      </ul>
+        <t>Note that:</t>
+        <ul>
+          <li>The Address, Card, Name, and NameComponent object values only contain properties for which a property entry exists in the profile.</li>
+          <li>The EmailAddress object contains the "address" property. This is allowed because the profile contains a property entry for the "emails" property of the Card object, but it does not define entries for the EmailAddress object properties. Consequently, all properties of the EmailAddress object can be set.</li>
+          <li>The "full" property of the Address object is set. It is the only property allowed to be set in that profile for Address, and the "full" property is mandatory for this profile.</li>
+          <li>The "kind" property of the NameComponent objects is set to "surname" and "given", respectively. Since the profile does not restrict the enumerated values of this property, all valid NameComponent "kind" property values are supported.</li>
+          <li>The "kind" property of the Card object is not set. The profile restricts the enumerated values of this property to "individual" and "org". Since "individual" is the default value for this property, there is no need to set it.</li>
+        </ul>
+      </section>
+      <section anchor="example-profile-iana">
+        <name>Example Profile IANA Registry</name>
+        <t>The following assignments would be registered at IANA if this were a real profile:</t>
+        <dl newline="true">
+          <dt>Name:</dt>
+          <dd>jscontact-simple-example</dd>
+          <dt>Version:</dt>
+          <dd>1</dd>
+          <dt>Reference:</dt>
+          <dd>This document, <xref target="example-profile-properties"/></dd>
+        </dl>
+        <t>See <xref target="iana-considerations"/> for the exact meaning of each registry item.</t>
+      </section>
     </section>
     <section anchor="iana-considerations" numbered="true" toc="default">
       <name>IANA Considerations</name>
@@ -305,7 +373,7 @@ lalpha       = %x61-7A ; a-z
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6901.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
-	<xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9553.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9553.xml"/>
         <reference anchor="IANA.jscontact" target="https://www.iana.org/assignments/jscontact" quoteTitle="true" derivedAnchor="IANA.jscontact">
           <front>
             <title>IANA JSContact Registry</title>
