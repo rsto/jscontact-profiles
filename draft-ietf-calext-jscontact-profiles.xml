@@ -66,7 +66,7 @@
     <section anchor="jscontact-profiles">
       <name>JSContact Profiles</name>
       <t>A JSContact profile is a named and versioned set of JSContact properties, value types and values. These JSContact elements <bcp14>MAY</bcp14> be further restricted by the profile, but a profile can not loosen restrictions. For example, a profile can define an originally optional property to become mandatory, but it can not make a mandatory property become optional.</t>
-      <t>The JSContact elements <bcp14>MUST</bcp14> be registered in the IANA JSContact registry. A JSContact extension <bcp14>MAY</bcp14> define both a new profile and new properties or other elements, as long as they are registered at the same time. A JSContact profile <bcp14>MUST</bcp14> be registered at IANA (see <xref target="iana-considerations"/>). <xref target="name"/> defines how to name a JSContact profile, <xref target="version"/> defines how to version it, <xref target="properties"/> defines how to specify the properties supported by that profile.</t>
+      <t>The JSContact elements <bcp14>MUST</bcp14> be registered in the <xref target="IANA.jscontact">IANA JSContact registry</xref>. A JSContact extension <bcp14>MAY</bcp14> define both a new profile and new properties or other elements, as long as they are registered at the same time. A JSContact profile <bcp14>MUST</bcp14> be registered at IANA (see <xref target="iana-considerations"/>). <xref target="name"/> defines how to name a JSContact profile, <xref target="version"/> defines how to version it, <xref target="properties"/> defines how to specify the properties supported by that profile.</t>
       <t>A JSContact object complies with a profile if all its properties are in the set of properties defined by that profile and the property values comply with the profile restrictions for that property. A JSContact object can comply with multiple profiles, even with profiles that weren't defined at the time when the JSContact data was created. Accordingly, this document does not specify any means for JSContact data to communicate which profiles it complies with, e.g. it does not define a "profile" property for the Card object.</t>
       <t>All properties and values of a JSContact object that complies with a profile <bcp14>MUST</bcp14> also be valid (<xref target="RFC9553" section="1.7"/>). Handling JSContact data that is valid but that does not comply with the expected profile is protocol-specific. This document deliberately does not define such non-compliant data as <em>invalid</em>. Profile designers decide on their own strategies for handling non-compliant data, one of which may be to reject it as invalid. JSContact data that complies with a profile may still not be valid in the context of that protocol; the protocol specification <bcp14>MAY</bcp14> define additional restrictions that a profile cannot express.</t>
       <section anchor="name">
@@ -305,7 +305,15 @@ lalpha       = %x61-7A ; a-z
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6901.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9553.xml"/>
+	<xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9553.xml"/>
+        <reference anchor="IANA.jscontact" target="https://www.iana.org/assignments/jscontact" quoteTitle="true" derivedAnchor="IANA.jscontact">
+          <front>
+            <title>IANA JSContact Registry</title>
+            <author>
+              <organization showOnFrontPage="true">IANA</organization>
+            </author>
+          </front>
+        </reference>
       </references>
       <references>
         <name>Informative References</name>
