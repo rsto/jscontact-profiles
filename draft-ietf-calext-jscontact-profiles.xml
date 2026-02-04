@@ -130,7 +130,8 @@ lalpha       = %x61-7A ; a-z
         <li>Contact cards for individuals and organizations, but no other kinds such as groups or devices.</li>
         <li>Full postal address lines, but no address components or any other property of the Address object type.</li>
         <li>Full names and name components, but no other properties of the Name object type.</li>
-        <li>Email addresses, where all properties of the EmailAddress object are supported.</li>
+	<li>Email addresses, where all properties of the EmailAddress object are supported.</li>
+	<li>Anniversaries for birthdays, and only for dates, not datetimes.</li>
         <li>Localizations, with the restriction that the PatchObject must only patch properties of the Card object.</li>
       </ul>
       <t><xref target="example-supported-properties"/> describes how to determine the supported properties for that profile.</t>
@@ -141,6 +142,12 @@ lalpha       = %x61-7A ; a-z
         <dl spacing="compact">
           <dt>Property Name</dt>
           <dd>addresses</dd>
+          <dt>Property Context</dt>
+          <dd>Card</dd>
+        </dl>
+        <dl spacing="compact">
+          <dt>Property Name</dt>
+          <dd>anniversaries</dd>
           <dt>Property Context</dt>
           <dd>Card</dd>
         </dl>
@@ -179,6 +186,22 @@ lalpha       = %x61-7A ; a-z
           <dd>Address</dd>
           <dt>Restricted Attributes</dt>
           <dd>mandatory</dd>
+        </dl>
+        <dl spacing="compact">
+          <dt>Property Name</dt>
+          <dd>date</dd>
+          <dt>Property Context</dt>
+	  <dd>Anniversary</dd>
+          <dt>Restricted Property Type</dt>
+          <dd>PartialDate</dd>
+        </dl>
+        <dl spacing="compact">
+          <dt>Property Name</dt>
+          <dd>kind</dd>
+          <dt>Property Context</dt>
+	  <dd>Anniversary</dd>
+          <dt>Restricted Enum Values</dt>
+          <dd>birth</dd>
         </dl>
         <dl spacing="compact">
           <dt>Property Name</dt>
@@ -226,6 +249,15 @@ lalpha       = %x61-7A ; a-z
   "emails": {
     "e1": {
       "address": "hayao@example.com"
+    }
+  },
+  "anniversaries": {
+    "a1": {
+      "kind": "birthday",
+      "date": {
+        "month": 3,
+        "day": 4
+      }
     }
   },
   "localizations": {
@@ -324,13 +356,14 @@ lalpha       = %x61-7A ; a-z
           <t>We initialize the set of supported properties with all profile properties for which the property context includes the "Card" object. The set now includes the properties:</t>
           <ul>
             <li>Card.addresses</li>
+            <li>Card.anniversaries</li>
             <li>Card.emails</li>
             <li>Card.kind</li>
             <li>Card.localizations</li>
             <li>Card.name</li>
           </ul>
         </li>
-        <li>Next, we determine which of the properties in the current set have an object type as value type. These are the "Card.address", "Card.emails" and "Card.name" properties, so we need to inspect the object types "Address", "EmailAddress" and "Name".</li>
+        <li>Next, we determine which of the properties in the current set have an object type as value type. These are the "Card.address", "Card.anniversaries", "Card.emails" and "Card.name" properties, so we need to inspect the object types "Address", "Anniversary", "EmailAddress" and "Name".</li>
         <li>
           <t>For the "Address" object type, the profile has an entry for the "full" property which contains the "Address" object in the Property Context, so we add that and only that to the set of supported properties. It now contains:</t>
           <ul>
@@ -341,12 +374,46 @@ lalpha       = %x61-7A ; a-z
             <li>Card.localizations</li>
             <li>Card.name</li>
           </ul>
-          <t>The value type of the "Address.full" property is not an object type, so we need not consider a new object type to inspect. The remaining object types to inspect are the "EmailAddress" and "Name" objects.</t>
+          <t>The value type of the "Address.full" property is not an object type, so we need not consider a new object type to inspect. The remaining object types to inspect are the "Anniversary", "EmailAddress" and "Name" objects.</t>
+        </li>
+        <li>
+          <t>For the "Anniversary" object type, the profile explicitly lists the "kind" and "date" properties, so we add them to the set of supported properties. It now contains:</t>
+          <ul>
+            <li>Address.full</li>
+            <li>Anniversary.date</li>
+            <li>Anniversary.kind</li>
+            <li>Card.addresses</li>
+            <li>Card.emails</li>
+            <li>Card.kind</li>
+            <li>Card.localizations</li>
+            <li>Card.name</li>
+          </ul>
+          <t>The newly added Anniversary.date property has object value type "PartialDate", so we add that to the list of object types to inspect. The entry restricts the type of that property to only be of that type, so we do not add the object value type "Timestamp". The remaining object types to inspect are the "EmailAddress", "Name" and "PartialDate" objects.</t>
+        </li>
+        <li>
+          <t>For the "PartialDate" object type, the profile does not contain any entry where the Property Context contains the "PartialDate" object. Instead, we add properties of the "JSContact Properties" registry where the property context includes the "PartialDate" object. The set of supported properties now contains:</t>
+          <ul>
+            <li>Address.full</li>
+            <li>Anniversary.date</li>
+            <li>Anniversary.kind</li>
+            <li>Card.addresses</li>
+            <li>Card.emails</li>
+            <li>Card.kind</li>
+            <li>Card.localizations</li>
+            <li>Card.name</li>
+            <li>PartialDate.calendarScale</li>
+            <li>PartialDate.day</li>
+            <li>PartialDate.month</li>
+            <li>PartialDate.year</li>
+          </ul>
+          <t>None of the newly added properties have object value types. The remaining object types to inspect are the "EmailAddress" and "Name" objects.</t>
         </li>
         <li>
           <t>For the "EmailAddress" object type, the profile does not contain any entry where the Property Context contains the "EmailAddress" object. Instead, we add properties of the "JSContact Properties" registry where the property context includes the "EmailAddress" object. The set of supported properties now contains:</t>
           <ul>
             <li>Address.full</li>
+            <li>Anniversary.date</li>
+            <li>Anniversary.kind</li>
             <li>Card.addresses</li>
             <li>Card.emails</li>
             <li>Card.kind</li>
@@ -356,6 +423,10 @@ lalpha       = %x61-7A ; a-z
             <li>EmailAddress.contexts</li>
             <li>EmailAddress.label</li>
             <li>EmailAddress.pref</li>
+            <li>PartialDate.calendarScale</li>
+            <li>PartialDate.day</li>
+            <li>PartialDate.month</li>
+            <li>PartialDate.year</li>
           </ul>
           <t>None of the newly added properties have object value types. The remaining object type to inspect is the "Name" object.</t>
         </li>
@@ -363,6 +434,8 @@ lalpha       = %x61-7A ; a-z
           <t>For the "Name" object type, the profile explicitly lists the "components" and "full" properties, so we add them to the set of supported properties. It now contains:</t>
           <ul>
             <li>Address.full</li>
+            <li>Anniversary.date</li>
+            <li>Anniversary.kind</li>
             <li>Card.addresses</li>
             <li>Card.emails</li>
             <li>Card.kind</li>
@@ -374,6 +447,10 @@ lalpha       = %x61-7A ; a-z
             <li>EmailAddress.pref</li>
             <li>Name.full</li>
             <li>Name.components</li>
+            <li>PartialDate.calendarScale</li>
+            <li>PartialDate.day</li>
+            <li>PartialDate.month</li>
+            <li>PartialDate.year</li>
           </ul>
           <t>The newly added Name.components property has object value type "NameComponent", so we add that to the list of object types to inspect.</t>
         </li>
@@ -381,6 +458,8 @@ lalpha       = %x61-7A ; a-z
           <t>For the "NameComponent" object type, the profile does not explicitly list any property. Instead, we add properties of the "JSContact Properties" registry where the property context includes the "NameComponent" object. The set of supported properties now contains:</t>
           <ul>
             <li>Address.full</li>
+            <li>Anniversary.date</li>
+            <li>Anniversary.kind</li>
             <li>Card.addresses</li>
             <li>Card.emails</li>
             <li>Card.kind</li>
@@ -393,6 +472,10 @@ lalpha       = %x61-7A ; a-z
             <li>NameComponent.kind</li>
             <li>NameComponent.phonetic</li>
             <li>NameComponent.value</li>
+            <li>PartialDate.calendarScale</li>
+            <li>PartialDate.day</li>
+            <li>PartialDate.month</li>
+            <li>PartialDate.year</li>
           </ul>
           <t>None of the newly added properties have object value types and there are no remaining object types to inspect. This determines the set of supported properties by that profile, in addition to the "Card.version" and "@type" property that are always supported.</t>
         </li>
