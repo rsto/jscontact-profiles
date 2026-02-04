@@ -53,8 +53,8 @@
     </section>
     <section anchor="introduction" numbered="true" toc="default">
       <name>Introduction</name>
-      <t>The <xref target="RFC9553">JSContact</xref> contact card data model and format is designed for use in address book applications and directory services. Intended as an alternative to the prevalent <xref target="RFC6350">vCard</xref> data format, it covers vCard core semantics and extensions, and provides a rich model for personal names, postal addresses and localization. All JSContact elements are relevant for some contact card use case and, similar to vCard, implementations are expected to support these elements when exchanging contact card information using protocols such as <xref target="RFC6352">CardDAV</xref> and <xref target="RFC9610">JMAP for Contacts</xref>.</t>
-      <t>In contrast, other protocols and internet standards might require exchanging <em>some</em> contact card information, but not all of what JSContact provides. <xref target="RFC9553" section="1.7.4"/> outlines how JSContact implementations may ignore unknown JSContact elements, but this only applies to future extensions of <xref target="RFC9553"/>; they are still expected to implement all elements of the core specification. Also, the extensibility of JSContact and the requirement to preserve arbitrary contact elements might not be adequate for some protocols.</t>
+      <t>The <xref target="RFC9553">JSContact</xref> contact card data model and format are designed for use in address book applications and directory services. Intended as an alternative to the prevalent <xref target="RFC6350">vCard</xref> data format, it covers vCard core semantics and extensions, and provides a rich model for personal names, postal addresses and localization. All JSContact elements are relevant for some contact card use case and, similar to vCard, implementations are expected to support these elements when exchanging contact card information using protocols such as <xref target="RFC6352">CardDAV</xref> and <xref target="RFC9610">JMAP for Contacts</xref>.</t>
+      <t>In contrast, other protocols and document specifications might require exchanging <em>some</em> contact card information, but not all of what JSContact provides. <xref target="RFC9553" section="1.7.4"/> outlines how JSContact implementations may ignore unknown JSContact elements, but this only applies to future extensions of <xref target="RFC9553"/>; they are still expected to implement all elements of the core specification. Also, the extensibility of JSContact and the requirement to preserve arbitrary contact elements might not be adequate for some protocols.</t>
       <t>To make use of JSContact under these circumstances, this document defines a new IANA registry for JSContact that allows for registering named subsets of JSContact elements. These subsets are referred to as "JSContact profiles" and are meant to bring the following benefits:</t>
       <ul>
         <li>Protocol designers might be encouraged to use JSContact, rather than coming up with their own contacts format. This facilitates cross-protocol data exchange and migration.</li>
@@ -65,7 +65,7 @@
     </section>
     <section anchor="jscontact-profiles">
       <name>JSContact Profiles</name>
-      <t>A JSContact profile is a named and versioned set of JSContact properties, value types and values. These JSContact elements <bcp14>MAY</bcp14> be further restricted by the profile, but a profile can not loosen restrictions. For example, a profile can define an originally optional property to become mandatory, but it can not make a mandatory property become optional.</t>
+      <t>A JSContact profile is a named and versioned set of JSContact properties, value types and values. These JSContact elements <bcp14>MAY</bcp14> be further restricted by the profile, but a profile <bcp14>MUST NOT</bcp14> loosen restrictions. For example, a profile can define an originally optional property to become mandatory, but it can not make a mandatory property become optional.</t>
       <t>The JSContact elements <bcp14>MUST</bcp14> be registered in the <xref target="IANA.jscontact">IANA JSContact registry</xref>. A JSContact extension <bcp14>MAY</bcp14> define both a new profile and new properties or other elements, as long as they are registered at the same time. A JSContact profile <bcp14>MUST</bcp14> be registered at IANA (see <xref target="iana-considerations"/>). <xref target="name"/> defines how to name a JSContact profile, <xref target="version"/> defines how to version it, <xref target="properties"/> defines how to specify the properties supported by that profile.</t>
       <t>A JSContact object complies with a profile if all its properties are in the set of properties defined by that profile and the property values comply with the profile restrictions for that property. A JSContact object can comply with multiple profiles, even with profiles that weren't defined at the time when the JSContact data was created. Accordingly, this document does not specify any means for JSContact data to communicate which profiles it complies with, e.g. it does not define a "profile" property for the Card object.</t>
       <t>All properties and values of a JSContact object that complies with a profile <bcp14>MUST</bcp14> also be valid (<xref target="RFC9553" section="1.7"/>). Handling JSContact data that is valid but that does not comply with the expected profile is protocol-specific. This document deliberately does not define such non-compliant data as <em>invalid</em>. Profile designers decide on their own strategies for handling non-compliant data, one of which may be to reject it as invalid. JSContact data that complies with a profile may still not be valid in the context of that protocol; the protocol specification <bcp14>MAY</bcp14> define additional restrictions that a profile cannot express.</t>
@@ -84,7 +84,7 @@ lalpha       = %x61-7A ; a-z
       </section>
       <section anchor="version">
         <name>Profile Version</name>
-        <t>A JSContact profile has a current version, each profile is versioned independently.  The version <bcp14>MUST</bcp14> be a positive integer and it <bcp14>MUST</bcp14> increase whenever the <xref target="properties">profile properties</xref> change. The inital version value is 1.</t>
+        <t>A JSContact profile has a current version, each profile is versioned independently.  The version <bcp14>MUST</bcp14> be a positive integer and it <bcp14>MUST</bcp14> increase whenever the <xref target="properties">profile properties</xref> change. The initial version value is 1.</t>
       </section>
       <section anchor="properties">
         <name>Profile Properties</name>
@@ -128,7 +128,7 @@ lalpha       = %x61-7A ; a-z
       <t>The following assignments would be registered at IANA if this were a real profile:</t>
       <dl newline="true">
         <dt>Name:</dt>
-        <dd>jscontact-simple</dd>
+        <dd>jscontact-simple-example</dd>
         <dt>Version:</dt>
         <dd>1</dd>
         <dt>Reference:</dt>
@@ -136,7 +136,7 @@ lalpha       = %x61-7A ; a-z
       </dl>
       <t>The following table defines the properties of that profile. This profile does not specify any "Restricted Property Type" and the according column is omitted.</t>
       <table anchor="example-profile-properties">
-        <name>Properties of the "jscontact-simple" profile</name>
+        <name>Properties of the "jscontact-simple-example" profile</name>
         <thead>
           <tr>
             <th>Property Name</th>
