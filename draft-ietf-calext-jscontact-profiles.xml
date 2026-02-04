@@ -85,7 +85,6 @@ lalpha       = %x61-7A ; a-z
       <section anchor="version">
         <name>Profile Version</name>
         <t>A JSContact profile has a current version, each profile is versioned independently.  The version <bcp14>MUST</bcp14> be a positive integer and it <bcp14>MUST</bcp14> increase whenever the <xref target="properties">profile properties</xref> change. The inital version value is 1.</t>
-        <t>If this versioning scheme is not adequate for protocol designers making use of JSContact profiles, then an alternative approach is to register a new JSContact profile for each new version.</t>
       </section>
       <section anchor="properties">
         <name>Profile Properties</name>
