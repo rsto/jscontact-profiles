@@ -75,10 +75,10 @@
         <figure anchor="profile-name-abnf">
           <name>ABNF Rule for JSContact Profile Name</name>
           <sourcecode name="" type="abnf"><![CDATA[
-profile-name = LALPHA *( ["-"] LALPHA / DIGIT )
+profile-name = lalpha *( ["-"] lalpha / DIGIT )
                ; at most 255 octets in size
 
-LALPHA       = %x61-7A ; a-z
+lalpha       = %x61-7A ; a-z
 ]]></sourcecode>
         </figure>
       </section>
