@@ -137,60 +137,32 @@ lalpha       = %x61-7A ; a-z
       <t>An example for JSContact data that complies with that profile is shown in <xref target="example-profile-card"/>. An example for its fictive IANA registration is shown in <xref target="example-profile-iana"/>. This profile is just for illustration, it is not registered at IANA.</t>
       <section anchor="example-profile-properties">
         <name>Example Profile Properties</name>
-        <t>The following entries define properties of that profile:</t>
+        <t>The following entries define properties of that profile. Entry elements with empty values are omitted:</t>
         <dl spacing="compact">
           <dt>Property Name</dt>
           <dd>addresses</dd>
           <dt>Property Context</dt>
           <dd>Card</dd>
-          <dt>Restricted Attributes</dt>
-          <dd/>
-          <dt>Restricted Property Type</dt>
-          <dd/>
-          <dt>Restricted Enum Values</dt>
-          <dd/>
-          <dt>Restricted PatchObject</dt>
-          <dd/>
         </dl>
         <dl spacing="compact">
           <dt>Property Name</dt>
           <dd>emails</dd>
           <dt>Property Context</dt>
           <dd>Card</dd>
-          <dt>Restricted Attributes</dt>
-          <dd/>
-          <dt>Restricted Property Type</dt>
-          <dd/>
-          <dt>Restricted Enum Values</dt>
-          <dd/>
-          <dt>Restricted PatchObject</dt>
-          <dd/>
         </dl>
         <dl spacing="compact">
           <dt>Property Name</dt>
           <dd>kind</dd>
           <dt>Property Context</dt>
           <dd>Card</dd>
-          <dt>Restricted Attributes</dt>
-          <dd/>
-          <dt>Restricted Property Type</dt>
-          <dd/>
           <dt>Restricted Enum Values</dt>
           <dd>individual,org</dd>
-          <dt>Restricted PatchObject</dt>
-          <dd/>
         </dl>
         <dl spacing="compact">
           <dt>Property Name</dt>
           <dd>localizations</dd>
           <dt>Property Context</dt>
           <dd>Card</dd>
-          <dt>Restricted Attributes</dt>
-          <dd/>
-          <dt>Restricted Property Type</dt>
-          <dd/>
-          <dt>Restricted Enum Values</dt>
-          <dd/>
           <dt>Restricted PatchObject</dt>
           <dd>yes</dd>
         </dl>
@@ -199,14 +171,6 @@ lalpha       = %x61-7A ; a-z
           <dd>name</dd>
           <dt>Property Context</dt>
           <dd>Card</dd>
-          <dt>Restricted Attributes</dt>
-          <dd/>
-          <dt>Restricted Property Type</dt>
-          <dd/>
-          <dt>Restricted Enum Values</dt>
-          <dd/>
-          <dt>Restricted PatchObject</dt>
-          <dd/>
         </dl>
         <dl spacing="compact">
           <dt>Property Name</dt>
@@ -215,68 +179,30 @@ lalpha       = %x61-7A ; a-z
           <dd>Address</dd>
           <dt>Restricted Attributes</dt>
           <dd>mandatory</dd>
-          <dt>Restricted Property Type</dt>
-          <dd/>
-          <dt>Restricted Enum Values</dt>
-          <dd/>
-          <dt>Restricted PatchObject</dt>
-          <dd/>
         </dl>
         <dl spacing="compact">
           <dt>Property Name</dt>
           <dd>components</dd>
           <dt>Property Context</dt>
           <dd>Name</dd>
-          <dt>Restricted Attributes</dt>
-          <dd/>
-          <dt>Restricted Property Type</dt>
-          <dd/>
-          <dt>Restricted Enum Values</dt>
-          <dd/>
-          <dt>Restricted PatchObject</dt>
-          <dd/>
         </dl>
         <dl spacing="compact">
           <dt>Property Name</dt>
           <dd>full</dd>
           <dt>Property Context</dt>
           <dd>Name</dd>
-          <dt>Restricted Attributes</dt>
-          <dd/>
-          <dt>Restricted Property Type</dt>
-          <dd/>
-          <dt>Restricted Enum Values</dt>
-          <dd/>
-          <dt>Restricted PatchObject</dt>
-          <dd/>
         </dl>
         <dl spacing="compact">
           <dt>Property Name</dt>
           <dd>kind</dd>
           <dt>Property Context</dt>
           <dd>NameComponent</dd>
-          <dt>Restricted Attributes</dt>
-          <dd/>
-          <dt>Restricted Property Type</dt>
-          <dd/>
-          <dt>Restricted Enum Values</dt>
-          <dd/>
-          <dt>Restricted PatchObject</dt>
-          <dd/>
         </dl>
         <dl spacing="compact">
           <dt>Property Name</dt>
           <dd>value</dd>
           <dt>Property Context</dt>
           <dd>NameComponent</dd>
-          <dt>Restricted Attributes</dt>
-          <dd/>
-          <dt>Restricted Property Type</dt>
-          <dd/>
-          <dt>Restricted Enum Values</dt>
-          <dd/>
-          <dt>Restricted PatchObject</dt>
-          <dd/>
         </dl>
       </section>
       <section anchor="example-profile-card">
