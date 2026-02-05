@@ -61,7 +61,7 @@
         <li>Different protocols use the same IANA registry to express which JSContact elements they support. This facilitates understanding their commonalities and reusing existing profiles.</li>
         <li>A central registry provides implementors of JSContact libraries with a consistent format documenting which profile supports what elements, rather than having to look up that information from possibly distinctly organized internet drafts.</li>
       </ul>
-      <t>This document is organized as follows: <xref target="jscontact-profiles"/> defines JSContact profiles, <xref target="example"/> illustrates JSContact profiles by example, <xref target="iana-considerations"/> summarizes the relevant information for IANA to establish the JSContact Profiles registry.</t>
+      <t>This document is organized as follows: <xref target="jscontact-profiles"/> defines JSContact profiles, <xref target="iana-considerations"/> summarizes the relevant information for IANA to establish the JSContact Profiles registry, <xref target="example"/> illustrates JSContact profiles by example.</t>
     </section>
     <section anchor="jscontact-profiles">
       <name>JSContact Profiles</name>
@@ -122,6 +122,59 @@ lalpha       = %x61-7A ; a-z
         <t><xref target="example-supported-properties"/> describes how to determine the supported properties of the example profile in <xref target="example"/>.</t>
       </section>
     </section>
+    <section anchor="iana-considerations" numbered="true" toc="default">
+      <name>IANA Considerations</name>
+      <section anchor="iana-jscontact-profile-registry" numbered="true" toc="default">
+        <name>Creation of the JSContact Profile Registry</name>
+        <t>IANA will add the "JSContact Profile" registry to the "JSContact" registry group. The purpose of this new registry is to register profiles for JSContact data. The registry policy to add an entry to this registry is "Specification Required", this applies to defining a new profile name or version. The registry policy to update an existing profile is "Expert Review", this applies to updating the references of an entry. The change controller is IETF.</t>
+        <t>Designated experts assert that all proposed assignments are valid according to the definitions in this document, e.g. they check that the profile name is unique, that the entries in the profile entries are syntactically valid, that only known property names are referred to, that type restrictions do not incorrectly alter the type of a property, and that the version number increases. On the other hand, designated experts do not decide the contents of the profile as long as the assignments are valid.</t>
+        <t>Adding an entry for which already entries with the same profile name exist, requires the profile version of the new entry to be higher than the highest version of the existing same-named entries. The existing registry entries are preserved and a new entry is created.</t>
+        <t>An entry in this registry consists of the following assignments, all of which <bcp14>MUST</bcp14> be set:</t>
+        <dl newline="true">
+          <dt>Name:</dt>
+          <dd>This is the name of the profile. This field is immutable after creation. The name <bcp14>MUST</bcp14> be unique among all registered profiles and <bcp14>MUST</bcp14> comply with the definitions in <xref target="name"/>.</dd>
+          <dt>Version:</dt>
+          <dd>This is the version number of the profile. This field is immutable after creation. It <bcp14>MUST</bcp14> comply with the definitions in <xref target="version"/>.</dd>
+          <dt>Reference:</dt>
+          <dd>This refers to the specifications of the protocol or use case for which this profile applies. The reference <bcp14>MUST</bcp14> include the section number or name that defines or updates the property entries for this profile, as defined in <xref target="properties"/>.</dd>
+        </dl>
+      </section>
+      <section>
+        <name>Initial Contents of the JSContact Profile Registry</name>
+        <t>This document does not define any initial contents for the newly created registries.</t>
+      </section>
+    </section>
+    <section anchor="security-considerations" numbered="true" toc="default">
+      <name>Security Considerations</name>
+      <t>This document does not provide new security considerations. The security considerations of <xref target="RFC9553" section="4" sectionFormat="of"/> apply.</t>
+    </section>
+  </middle>
+  <back>
+    <references>
+      <name>References</name>
+      <references>
+        <name>Normative References</name>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6901.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9553.xml"/>
+        <reference anchor="IANA.jscontact" target="https://www.iana.org/assignments/jscontact" quoteTitle="true" derivedAnchor="IANA.jscontact">
+          <front>
+            <title>IANA JSContact Registry</title>
+            <author>
+              <organization showOnFrontPage="true">IANA</organization>
+            </author>
+          </front>
+        </reference>
+      </references>
+      <references>
+        <name>Informative References</name>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6350.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6352.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9610.xml"/>
+      </references>
+    </references>
     <section anchor="example">
       <name>Example Profile</name>
       <t>This section provides an example for a JSContact profile and illustrates how a JSContact Card complies with that profile.</t>
@@ -134,10 +187,9 @@ lalpha       = %x61-7A ; a-z
 	<li>Anniversaries for birthdays, and only for dates, not datetimes.</li>
         <li>Localizations, with the restriction that the PatchObject must only patch properties of the Card object.</li>
       </ul>
-      <t><xref target="example-supported-properties"/> describes how to determine the supported properties for that profile.</t>
-      <t>An example for JSContact data that complies with that profile is shown in <xref target="example-profile-card"/>. An example for its fictive IANA registration is shown in <xref target="example-profile-iana"/>. This profile is just for illustration, it is not registered at IANA.</t>
+      <t>An example for JSContact data that complies with that profile is shown in <xref target="example-profile-card"/>. An example for its fictive IANA registration is shown in <xref target="example-profile-iana"/>. This profile is just for illustration, it is not registered at IANA. <xref target="example-supported-properties"/> describes how to determine the supported properties for that profile.</t>
       <section anchor="example-profile-properties">
-        <name>Example Profile Properties</name>
+        <name>Profile Properties Example</name>
         <t>The following entries define properties of that profile. Entry elements with empty values are omitted:</t>
         <dl spacing="compact">
           <dt>Property Name</dt>
@@ -229,7 +281,7 @@ lalpha       = %x61-7A ; a-z
         </dl>
       </section>
       <section anchor="example-profile-card">
-        <name>Example Profile Card Object</name>
+        <name>Card Object Example</name>
         <t>The following Card object complies with the example profile:</t>
         <sourcecode type=""><![CDATA[
 {
@@ -283,7 +335,7 @@ lalpha       = %x61-7A ; a-z
         </ul>
       </section>
       <section anchor="example-profile-iana">
-        <name>Example Profile IANA Registry</name>
+        <name>IANA Registry Example</name>
         <t>The following assignments would be registered at IANA if this were a real profile:</t>
         <dl newline="true">
           <dt>Name:</dt>
@@ -294,61 +346,7 @@ lalpha       = %x61-7A ; a-z
           <dd>This document, <xref target="example-profile-properties"/></dd>
         </dl>
         <t>See <xref target="iana-considerations"/> for the exact meaning of each registry item.</t>
-      </section>
     </section>
-    <section anchor="iana-considerations" numbered="true" toc="default">
-      <name>IANA Considerations</name>
-      <section anchor="iana-jscontact-profile-registry" numbered="true" toc="default">
-        <name>Creation of the JSContact Profile Registry</name>
-        <t>IANA will add the "JSContact Profile" registry to the "JSContact" registry group. The purpose of this new registry is to register profiles for JSContact data. The registry policy to add an entry to this registry is "Specification Required", this applies to defining a new profile name or version. The registry policy to update an existing profile is "Expert Review", this applies to updating the references of an entry. The change controller is IETF.</t>
-        <t>Designated experts assert that all proposed assignments are valid according to the definitions in this document, e.g. they check that the profile name is unique, that the entries in the profile entries are syntactically valid, that only known property names are referred to, that type restrictions do not incorrectly alter the type of a property, and that the version number increases. On the other hand, designated experts do not decide the contents of the profile as long as the assignments are valid.</t>
-        <t>Adding an entry for which already entries with the same profile name exist, requires the profile version of the new entry to be higher than the highest version of the existing same-named entries. The existing registry entries are preserved and a new entry is created.</t>
-        <t>An entry in this registry consists of the following assignments, all of which <bcp14>MUST</bcp14> be set:</t>
-        <dl newline="true">
-          <dt>Name:</dt>
-          <dd>This is the name of the profile. This field is immutable after creation. The name <bcp14>MUST</bcp14> be unique among all registered profiles and <bcp14>MUST</bcp14> comply with the definitions in <xref target="name"/>.</dd>
-          <dt>Version:</dt>
-          <dd>This is the version number of the profile. This field is immutable after creation. It <bcp14>MUST</bcp14> comply with the definitions in <xref target="version"/>.</dd>
-          <dt>Reference:</dt>
-          <dd>This refers to the specifications of the protocol or use case for which this profile applies. The reference <bcp14>MUST</bcp14> include the section number or name that defines or updates the property entries for this profile, as defined in <xref target="properties"/>.</dd>
-        </dl>
-      </section>
-      <section>
-        <name>Initial Contents of the JSContact Profile Registry</name>
-        <t>This document does not define any initial contents for the newly created registries.</t>
-      </section>
-    </section>
-    <section anchor="security-considerations" numbered="true" toc="default">
-      <name>Security Considerations</name>
-      <t>This document does not provide new security considerations. The security considerations of <xref target="RFC9553" section="4" sectionFormat="of"/> apply.</t>
-    </section>
-  </middle>
-  <back>
-    <references>
-      <name>References</name>
-      <references>
-        <name>Normative References</name>
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml"/>
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6901.xml"/>
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9553.xml"/>
-        <reference anchor="IANA.jscontact" target="https://www.iana.org/assignments/jscontact" quoteTitle="true" derivedAnchor="IANA.jscontact">
-          <front>
-            <title>IANA JSContact Registry</title>
-            <author>
-              <organization showOnFrontPage="true">IANA</organization>
-            </author>
-          </front>
-        </reference>
-      </references>
-      <references>
-        <name>Informative References</name>
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6350.xml"/>
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6352.xml"/>
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9610.xml"/>
-      </references>
-    </references>
     <section anchor="example-supported-properties">
       <name>Supported Properties Example</name>
       <t>The following illustrates how to determine the supported properties of the <xref target="example" sectionFormat="parens">example profile</xref>, according to the steps defined in <xref target="supported-properties"/>:</t>
@@ -481,6 +479,7 @@ lalpha       = %x61-7A ; a-z
           <t>None of the newly added properties have object value types and there are no remaining object types to inspect. This determines the set of supported properties by that profile, in addition to the "Card.version" and "@type" property that are always supported.</t>
         </li>
       </ol>
+    </section>
     </section>
   </back>
 </rfc>
