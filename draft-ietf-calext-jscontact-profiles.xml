@@ -253,7 +253,7 @@ lalpha       = %x61-7A ; a-z
   },
   "anniversaries": {
     "a1": {
-      "kind": "birthday",
+      "kind": "birth",
       "date": {
         "month": 3,
         "day": 4
@@ -279,6 +279,7 @@ lalpha       = %x61-7A ; a-z
           <li>The "full" property of the Address object is set. It is the only property allowed to be set in that profile for Address, and the "full" property is mandatory for this profile.</li>
           <li>The "kind" property of the NameComponent objects is set to "surname" and "given", respectively. Since the profile does not restrict the enumerated values of this property, all valid NameComponent "kind" property values are supported.</li>
           <li>The "kind" property of the Card object is not set. The profile restricts the enumerated values of this property to "individual" and "org". Since "individual" is the default value for this property, there is no need to set it.</li>
+          <li>The "date" property of the Anniversary object is in this profile restricted to be of type PartialDate. Because PartialDate is the default type for this property, there is no need to the set the "@type" property of the PartialDate object.</li>
         </ul>
       </section>
       <section anchor="example-profile-iana">
