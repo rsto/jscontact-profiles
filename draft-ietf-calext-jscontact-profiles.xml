@@ -127,8 +127,6 @@ lalpha       = %x61-7A ; a-z
       <section anchor="iana-jscontact-profile-registry" numbered="true" toc="default">
         <name>Creation of the JSContact Profile Registry</name>
         <t>IANA will add the "JSContact Profile" registry to the "JSContact" registry group. The purpose of this new registry is to register profiles for JSContact data. The registry policy to add an entry to this registry is "Specification Required", this applies to defining a new profile name or version. The registry policy to update an existing profile is "Expert Review", this applies to updating the references of an entry. The change controller is IETF.</t>
-        <t>Designated experts assert that all proposed assignments are valid according to the definitions in this document, e.g. they check that the profile name is unique, that the entries in the profile entries are syntactically valid, that only known property names are referred to, that type restrictions do not incorrectly alter the type of a property, and that the version number increases. On the other hand, designated experts do not decide the contents of the profile as long as the assignments are valid.</t>
-	<t>The profile version of the new entry for an already registered profile by that name <bcp14>MUST</bcp14> be higher than the last registered version for that profile. Existing registry entries are preserved.</t>
         <t>An entry in this registry consists of the following assignments, all of which <bcp14>MUST</bcp14> be set:</t>
         <dl newline="true">
           <dt>Name:</dt>
@@ -138,6 +136,9 @@ lalpha       = %x61-7A ; a-z
           <dt>Reference:</dt>
           <dd>This refers to the specifications of the protocol or use case for which this profile applies. The reference <bcp14>MUST</bcp14> include the section number or name that defines or updates the property entries for this profile, as defined in <xref target="properties"/>.</dd>
         </dl>
+        <t>Designated experts assert that all proposed assignments are valid according to the definitions in this document, e.g. they check that the profile name is unique, that the entries in the profile entries are syntactically valid, that only known property names are referred to, that type restrictions do not incorrectly alter the type of a property, and that the version number increases. On the other hand, designated experts do not decide the contents of the profile as long as the assignments are valid.</t>
+	<t>The decision if to register a new profile name or instead register a new version for an existing profile depends on the scope of the proposed profile:</t>
+	<t>A new profile name is recommended if the profile is introduced in context of an application or protocol for which no JSContact profile already is registered, or if the proposed profile properties or restrictions substantially differ from existing profiles for that context. A new version instead is applicable if the profile context does not change and multiple implementations of the current profile also will support the new version. The profile version of the new entry for an already registered profile by that name <bcp14>MUST</bcp14> be higher than the last registered version for that profile. Existing registry entries are preserved.</t>
       </section>
       <section>
         <name>Initial Contents of the JSContact Profile Registry</name>
